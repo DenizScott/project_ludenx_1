@@ -1,8 +1,14 @@
+"use client";
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import styles from './TopHeader.module.css';
-import { Fingerprint } from 'lucide-react';
+import { Fingerprint, Search } from 'lucide-react';
 
 export default function TopHeader({ currentUser }) {
+  const pathname = usePathname();
+  const isFeed = pathname === '/feed' || pathname === '/following';
+  const isExplore = pathname === '/explore';
+
   return (
     <header className={styles.header}>
       {/* Sadece mobilde gözüken üst logo ve profil barı */}
@@ -31,16 +37,29 @@ export default function TopHeader({ currentUser }) {
         <div style={{ width: 32 }}></div> {/* Sağ tarafı dengelemek için boşluk */}
       </div>
 
-      {/* Taba menüsü (Sana Özel / Takip Edilenler) */}
-      <div className={styles.tabsRow}>
-        <div className={`${styles.tab} ${styles.activeTab}`}>
-          <span>Sana Özel</span>
-          <div className={styles.activeIndicator}></div>
+      {/* Arama sayfasıysa arama çubuğu göster */}
+      {isExplore && (
+        <div style={{ padding: '0 1rem 1rem 1rem' }}>
+          <div style={{ display: 'flex', alignItems: 'center', backgroundColor: 'var(--card-dark)', borderRadius: '20px', padding: '0.5rem 1rem', border: '1px solid var(--border-dark)' }}>
+            <Search size={18} color="var(--text-muted)" style={{ marginRight: '0.5rem' }} />
+            <input type="text" placeholder="LudenX'te Ara..." style={{ background: 'transparent', border: 'none', color: 'white', width: '100%', outline: 'none' }} />
+          </div>
         </div>
-        <div className={styles.tab}>
-          <span>Takip Edilenler</span>
+      )}
+
+      {/* Sadece Feed ve Following sayfalarında sekmeleri göster */}
+      {isFeed && (
+        <div className={styles.tabsRow}>
+          <Link href="/feed" className={`${styles.tab} ${pathname === '/feed' ? styles.activeTab : ''}`} style={{ textDecoration: 'none' }}>
+            <span style={{ color: pathname === '/feed' ? 'white' : 'var(--text-muted)' }}>Sana Özel</span>
+            {pathname === '/feed' && <div className={styles.activeIndicator}></div>}
+          </Link>
+          <Link href="/following" className={`${styles.tab} ${pathname === '/following' ? styles.activeTab : ''}`} style={{ textDecoration: 'none' }}>
+            <span style={{ color: pathname === '/following' ? 'white' : 'var(--text-muted)' }}>Takip Edilenler</span>
+            {pathname === '/following' && <div className={styles.activeIndicator}></div>}
+          </Link>
         </div>
-      </div>
+      )}
     </header>
   );
 }
