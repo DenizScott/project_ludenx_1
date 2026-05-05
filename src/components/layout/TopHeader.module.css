@@ -1,0 +1,86 @@
+.header {
+  position: sticky;
+  top: 0;
+  background-color: rgba(15, 23, 42, 0.85); /* var(--bg-dark) with opacity */
+  backdrop-filter: blur(12px);
+  z-index: 50;
+  border-bottom: 1px solid var(--border-dark);
+}
+
+.mobileTopRow {
+  display: none;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.8rem 1rem;
+}
+
+.profileLink {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.avatarPlaceholder {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--text-dark);
+}
+
+.tabsRow {
+  display: flex;
+  width: 100%;
+}
+
+.tab {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem 0;
+  color: var(--text-muted);
+  font-weight: bold;
+  cursor: pointer;
+  position: relative;
+  transition: background-color 0.2s ease;
+}
+
+.tab:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.activeTab {
+  color: var(--text-dark);
+}
+
+.activeIndicator {
+  position: absolute;
+  bottom: 0;
+  width: 60px;
+  height: 4px;
+  border-radius: 9999px;
+  background-color: var(--accent);
+}
+
+@media (max-width: 768px) {
+  .mobileTopRow {
+    display: flex;
+  }
+}

@@ -5,13 +5,18 @@
 }
 
 .postCard {
-  border-bottom: 1px solid var(--border-dark);
+  background-color: var(--card-dark);
+  border: 1px solid var(--border-dark);
+  border-radius: 16px;
   padding: 1.5rem;
-  transition: background-color 0.2s ease;
+  margin: 0 1.5rem 1.5rem 1.5rem;
+  transition: border-color 0.2s ease, transform 0.2s ease;
+  position: relative;
 }
 
 .postCard:hover {
-  background-color: rgba(255, 255, 255, 0.02);
+  border-color: var(--accent);
+  transform: translateY(-2px);
 }
 
 .postHeader {
@@ -79,7 +84,7 @@
 
 .postActions {
   display: flex;
-  gap: 2rem;
+  gap: 1.5rem;
   padding-left: 4rem;
   margin-top: 1rem;
 }
@@ -89,10 +94,40 @@
   border: none;
   color: var(--text-muted);
   cursor: pointer;
-  font-size: 0.9rem;
-  transition: color 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  border-radius: 50%;
+  transition: all 0.2s ease;
 }
 
 .actionBtn:hover {
+  background-color: rgba(255, 255, 255, 0.05);
   color: var(--accent);
+}
+
+.likeBtn:hover {
+  color: #f91880;
+  background-color: rgba(249, 24, 128, 0.1);
+}
+
+.commentBtn:hover {
+  color: #1d9bf0;
+  background-color: rgba(29, 155, 240, 0.1);
+}
+
+.repostBtn:hover {
+  color: #00ba7c;
+  background-color: rgba(0, 186, 124, 0.1);
+}
+
+.deleteBtnWrapper {
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  margin-left: auto;
+}
+
+.postCard:hover .deleteBtnWrapper {
+  opacity: 1;
 }

@@ -1,8 +1,12 @@
-export default function Home() {
-  return (
-    <main style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100vh' }}>
-      <h1 style={{ color: 'var(--accent)', fontSize: '3rem', marginBottom: '1rem' }}>Ludenx</h1>
-      <p style={{ color: 'var(--text-muted)' }}>The social platform for game developers is under construction.</p>
-    </main>
-  );
+import { redirect } from 'next/navigation';
+import { getServerSession } from "next-auth/next";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+
+export default async function Home() {
+  const session = await getServerSession(authOptions);
+  if (!session) {
+    redirect('/login');
+  } else {
+    redirect('/feed');
+  }
 }
