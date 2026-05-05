@@ -129,7 +129,7 @@ export default function PostCard({ post, currentUser, dict, autoShowComments = f
     <div className={styles.postCard} onClick={navigateToPost} style={{ cursor: 'pointer' }}>
       <div className={styles.postHeader}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', width: '100%' }}>
-          <div className={styles.avatar} onClick={(e) => { e.stopPropagation(); router.push(`/${post.author?.username || '@' + post.author?.email?.split('@')[0]}`); }}>
+          <div className={styles.avatar} onClick={(e) => { e.stopPropagation(); router.push(`/@${post.author?.username?.replace('@', '') || post.author?.email?.split('@')[0]}`); }}>
             {post.author?.image ? (
               <img src={post.author.image} alt="Avatar" style={{width:'100%', height:'100%', borderRadius:'50%', objectFit:'cover'}} />
             ) : (
@@ -137,10 +137,10 @@ export default function PostCard({ post, currentUser, dict, autoShowComments = f
             )}
           </div>
           <div className={styles.authorInfo} style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', gap: '6px' }}>
-            <span className={styles.authorName} onClick={(e) => { e.stopPropagation(); router.push(`/${post.author?.username || '@' + post.author?.email?.split('@')[0]}`); }} style={{ cursor: 'pointer' }}>
+            <span className={styles.authorName} onClick={(e) => { e.stopPropagation(); router.push(`/@${post.author?.username?.replace('@', '') || post.author?.email?.split('@')[0]}`); }} style={{ cursor: 'pointer' }}>
               {post.author?.name || 'Kullanıcı'}
             </span>
-            <span className={styles.authorUsername} onClick={(e) => { e.stopPropagation(); router.push(`/${post.author?.username || '@' + post.author?.email?.split('@')[0]}`); }} style={{ display: 'inline-flex', alignItems: 'center', cursor: 'pointer' }}>
+            <span className={styles.authorUsername} onClick={(e) => { e.stopPropagation(); router.push(`/@${post.author?.username?.replace('@', '') || post.author?.email?.split('@')[0]}`); }} style={{ display: 'inline-flex', alignItems: 'center', cursor: 'pointer' }}>
               {post.author?.username || `@${post.author?.email?.split('@')[0]}`}
               {isOwner && (
                 <span title="Owner of LudenX" style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', background: '#e0245e', color: 'white', borderRadius: '50%', width: '16px', height: '16px', marginLeft: '4px', cursor: 'default' }}>

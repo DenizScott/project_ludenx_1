@@ -54,7 +54,7 @@ export default function ProfileStats({ user, currentUserId }) {
               {(showModal === 'followers' ? user.followers : user.following).map((rel) => {
                 const person = showModal === 'followers' ? rel.follower : rel.following;
                 return (
-                  <Link key={person.id} href={`/${person.username?.replace('@', '') || person.email?.split('@')[0]}`} style={{ textDecoration: 'none' }}>
+                  <Link key={person.id} href={`/@${person.username?.replace('@', '') || person.email?.split('@')[0]}`} style={{ textDecoration: 'none' }}>
                     <div style={{ 
                       display: 'flex', alignItems: 'center', gap: '1rem', 
                       padding: '0.8rem', borderRadius: '12px', transition: 'background-color 0.2s' 

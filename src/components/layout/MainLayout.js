@@ -8,6 +8,7 @@ import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { PrismaClient } from '@prisma/client';
 import GlobalTransition from './GlobalTransition';
+import NotificationListener from './NotificationListener';
 
 const prisma = global.prisma || new PrismaClient();
 if (process.env.NODE_ENV === "development") global.prisma = prisma;
@@ -35,13 +36,13 @@ export default async function MainLayout({ children }) {
         </main>
       </div>
       <div className={styles.rightSidebar}>
-        {/* Future placeholder for trends, suggested follows, etc. */}
         <div className={styles.placeholderCard}>
           <h3>{dict.feed.trending}</h3>
           <p className={styles.muted}>{dict.feed.coming_soon}</p>
         </div>
       </div>
       <GlobalTransition />
+      <NotificationListener currentUserId={currentUser?.id} />
     </div>
   );
 }

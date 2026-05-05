@@ -2,6 +2,7 @@ import { PrismaClient } from '@prisma/client';
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { Heart, MessageSquare, Repeat2, UserPlus, Radar } from 'lucide-react';
+import Link from 'next/link';
 
 const prisma = global.prisma || new PrismaClient();
 if (process.env.NODE_ENV === "development") global.prisma = prisma;
@@ -21,6 +22,12 @@ export default async function NotificationsPage() {
     include: {
       sender: { select: { name: true, username: true, email: true, image: true } },
     }
+  });
+
+  // Mark all as read when user visits the page
+  await prisma.notification.updateMany({
+    where: { recipientId: session.user.id, read: false },
+    data: { read: true }
   });
 
   const getIcon = (type) => {
@@ -56,35 +63,39 @@ export default async function NotificationsPage() {
         </div>
       ) : (
         <div style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-          {notifications.map(notif => (
-            <div key={notif.id} style={{ 
-              display: 'flex', 
-              alignItems: 'flex-start', 
-              gap: '1rem', 
-              padding: '1.5rem', 
-              backgroundColor: notif.read ? 'var(--card-dark)' : 'rgba(176, 38, 255, 0.1)', 
-              border: '1px solid var(--border-dark)', 
-              borderRadius: '16px',
-              transition: 'transform 0.2s ease',
-              cursor: 'pointer'
-            }}>
-              <div>{getIcon(notif.type)}</div>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-                <div style={{ width: '36px', height: '36px', borderRadius: '50%', backgroundColor: 'var(--border-dark)', overflow: 'hidden' }}>
-                  {notif.sender.image ? (
-                    <img src={notif.sender.image} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                  ) : (
-                    <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold' }}>
-                      {notif.sender.name ? notif.sender.name[0].toUpperCase() : 'U'}
-                    </div>
-                  )}
-                </div>
-                <div style={{ color: 'white', fontSize: '1.1rem' }}>
-                  {getMessage(notif.type, notif.sender.name || 'Bir kullanıcı')}
+          {notifications.map(notif => {
+            const linkHref = notif.postId ? `/post/${notif.postId}` : `/@${notif.sender?.username?.replace('@', '') || notif.sender?.email?.split('@')[0]}`;
+            return (
+            <Link href={linkHref} key={notif.id} style={{ textDecoration: 'none' }}>
+              <div style={{ 
+                display: 'flex', 
+                alignItems: 'flex-start', 
+                gap: '1rem', 
+                padding: '1.5rem', 
+                backgroundColor: notif.read ? 'var(--card-dark)' : 'rgba(176, 38, 255, 0.1)', 
+                border: '1px solid var(--border-dark)', 
+                borderRadius: '16px',
+                transition: 'transform 0.2s ease',
+                cursor: 'pointer'
+              }} onMouseOver={(e) => e.currentTarget.style.backgroundColor = 'var(--bg-dark)'} onMouseOut={(e) => e.currentTarget.style.backgroundColor = notif.read ? 'var(--card-dark)' : 'rgba(176, 38, 255, 0.1)'}>
+                <div>{getIcon(notif.type)}</div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                  <div style={{ width: '36px', height: '36px', borderRadius: '50%', backgroundColor: 'var(--border-dark)', overflow: 'hidden' }}>
+                    {notif.sender.image ? (
+                      <img src={notif.sender.image} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                    ) : (
+                      <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold', color: 'white' }}>
+                        {notif.sender.name ? notif.sender.name[0].toUpperCase() : 'U'}
+                      </div>
+                    )}
+                  </div>
+                  <div style={{ color: 'white', fontSize: '1.1rem' }}>
+                    {getMessage(notif.type, notif.sender.name || 'Bir kullanıcı')}
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            </Link>
+          )})}
         </div>
       )}
     </div>
