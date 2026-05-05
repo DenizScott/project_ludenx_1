@@ -1,0 +1,98 @@
+.feedContainer {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 4rem;
+}
+
+.postCard {
+  border-bottom: 1px solid var(--border-dark);
+  padding: 1.5rem;
+  transition: background-color 0.2s ease;
+}
+
+.postCard:hover {
+  background-color: rgba(255, 255, 255, 0.02);
+}
+
+.postHeader {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background-color: var(--accent);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 1.2rem;
+  margin-right: 1rem;
+}
+
+.authorInfo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1rem;
+}
+
+.authorName {
+  font-weight: bold;
+  color: var(--text-dark);
+}
+
+.authorUsername, .time {
+  color: var(--text-muted);
+}
+
+.dot {
+  color: var(--text-muted);
+}
+
+.postContent {
+  padding-left: 4rem; /* Align with text, not avatar */
+}
+
+.postContent p {
+  margin-bottom: 1rem;
+  line-height: 1.5;
+  font-size: 1.1rem;
+}
+
+.mediaContainer {
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid var(--border-dark);
+  margin-top: 1rem;
+}
+
+.media {
+  width: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+.postActions {
+  display: flex;
+  gap: 2rem;
+  padding-left: 4rem;
+  margin-top: 1rem;
+}
+
+.actionBtn {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: color 0.2s ease;
+}
+
+.actionBtn:hover {
+  color: var(--accent);
+}

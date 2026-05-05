@@ -1,0 +1,32 @@
+{
+  "login": {
+    "title": "Ludenx'e Katıl",
+    "subtitle": "Oyun geliştiricileri için yepyeni bir vitrin.",
+    "continue_google": "Google ile Devam Et",
+    "or": "veya",
+    "email": "E-posta",
+    "password": "Şifre",
+    "sign_in": "Giriş Yap",
+    "no_account": "Hesabın yok mu?",
+    "sign_up": "Kayıt Ol"
+  },
+  "sidebar": {
+    "home": "Ana Sayfa",
+    "explore": "Keşfet",
+    "notifications": "Bildirimler",
+    "messages": "Mesajlar",
+    "following": "Takip Edilenler",
+    "profile": "Profil",
+    "post": "Paylaş"
+  },
+  "header": {
+    "search_placeholder": "Oyunları, geliştiricileri veya stüdyoları ara..."
+  },
+  "feed": {
+    "like": "Beğen",
+    "comment": "Yorum Yap",
+    "share": "Paylaş",
+    "trending": "Trend Oyunlar",
+    "coming_soon": "Çok yakında..."
+  }
+}

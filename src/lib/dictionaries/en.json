@@ -1,0 +1,32 @@
+{
+  "login": {
+    "title": "Join Ludenx",
+    "subtitle": "The premier showcase for game developers.",
+    "continue_google": "Continue with Google",
+    "or": "or",
+    "email": "Email",
+    "password": "Password",
+    "sign_in": "Sign In",
+    "no_account": "Don't have an account?",
+    "sign_up": "Sign up"
+  },
+  "sidebar": {
+    "home": "Home",
+    "explore": "Explore",
+    "notifications": "Notifications",
+    "messages": "Messages",
+    "following": "Following",
+    "profile": "Profile",
+    "post": "Post"
+  },
+  "header": {
+    "search_placeholder": "Search games, devs, or studios..."
+  },
+  "feed": {
+    "like": "Like",
+    "comment": "Comment",
+    "share": "Share",
+    "trending": "Trending Games",
+    "coming_soon": "Coming soon..."
+  }
+}

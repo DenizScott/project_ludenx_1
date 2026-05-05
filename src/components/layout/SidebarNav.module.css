@@ -1,0 +1,102 @@
+.sidebar {
+  width: 275px;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  border-right: 1px solid var(--border-dark);
+  padding: 1rem 2rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.logo {
+  font-size: 2rem;
+  font-weight: bold;
+  color: var(--accent);
+  margin-bottom: 2rem;
+  padding-left: 1rem;
+}
+
+.navList {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.navItem {
+  width: 100%;
+}
+
+.navLink {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  padding: 1rem;
+  border-radius: 9999px;
+  font-size: 1.25rem;
+  color: var(--text-dark);
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.navLink:hover {
+  background-color: rgba(176, 38, 255, 0.1);
+  color: var(--accent);
+}
+
+.icon {
+  flex-shrink: 0;
+}
+
+.postButton {
+  margin-top: 2rem;
+  background-color: var(--accent);
+  color: white;
+  border: none;
+  border-radius: 9999px;
+  padding: 1rem;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.postButton:hover {
+  background-color: var(--accent-hover);
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    width: 80px;
+    padding: 1rem 0.5rem;
+    align-items: center;
+  }
+  .label {
+    display: none;
+  }
+  .logo {
+    font-size: 1.5rem;
+    padding: 0;
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  .postButton {
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0;
+  }
+  .postButton::after {
+    content: '+';
+    font-size: 2rem;
+  }
+  .navLink {
+    justify-content: center;
+    padding: 1rem 0;
+  }
+}
