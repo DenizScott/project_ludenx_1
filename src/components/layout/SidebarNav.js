@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Gamepad2, Telescope, Radar, MessageSquareDashed, Network, Fingerprint, Search } from 'lucide-react';
+import { Gamepad2, Telescope, Radar, Network, Fingerprint, Search } from 'lucide-react';
 import styles from './SidebarNav.module.css';
 import { getDictionary } from '@/lib/i18n';
 
@@ -11,7 +11,7 @@ export default function SidebarNav({ currentUser }) {
     { id: 'search', name: 'Arama', href: '/explore', icon: Search, desktopHide: true },
     { id: 'explore', name: dict.sidebar.explore, href: '/explore', icon: Telescope, mobileHide: true },
     { id: 'notifications', name: dict.sidebar.notifications, href: '/notifications', icon: Radar },
-    { id: 'messages', name: dict.sidebar.messages, href: '/messages', icon: MessageSquareDashed },
+
     { id: 'following', name: dict.sidebar.following, href: '/following', icon: Network, mobileHide: true },
   ];
 
