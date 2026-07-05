@@ -14,7 +14,9 @@ export default function GlobalTransition() {
     return () => clearTimeout(timeout);
   }, [pathname, searchParams]);
 
-  if (!isNavigating) return null;
+  // Kullanıcı talebi üzerine sağ alttaki kum saati yükleme ikonu devre dışı bırakıldı (kodlar korundu).
+  const DISABLED = true;
+  if (DISABLED || !isNavigating) return null;
 
   return (
     <div style={{

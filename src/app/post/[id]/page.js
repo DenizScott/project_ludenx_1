@@ -53,7 +53,7 @@ export default async function SinglePostPage({ params }) {
         <Link href="/feed" style={{ color: 'var(--text-dark)', display: 'flex', alignItems: 'center', justifyContent: 'center', width: '36px', height: '36px', borderRadius: '50%', textDecoration: 'none', cursor: 'pointer' }}>
           <ArrowLeft size={20} />
         </Link>
-        Devlog
+        Fikir
       </div>
       <PostCard post={post} currentUser={dbUser} dict={dict} autoShowComments={true} />
     </div>

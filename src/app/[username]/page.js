@@ -4,7 +4,7 @@ import PostCard from '@/components/feed/PostCard';
 import { PrismaClient } from '@prisma/client';
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
-import { CalendarDays, ArrowLeft, Crown } from 'lucide-react';
+import { CalendarDays, ArrowLeft } from 'lucide-react';
 import EditProfileModal from '@/components/profile/EditProfileModal';
 import AdminOptionsDropdown from '@/components/profile/AdminOptionsDropdown';
 import FollowButton from '@/components/profile/FollowButton';
@@ -39,41 +39,47 @@ export default async function UserProfilePage({ params }) {
       followers: { include: { follower: { select: { id: true, name: true, username: true, email: true, image: true } } } },
       following: { include: { following: { select: { id: true, name: true, username: true, email: true, image: true } } } },
       posts: {
+        take: 20,
         orderBy: { createdAt: 'desc' },
         include: {
-          author: { select: { name: true, username: true, email: true, image: true } },
+          author: { select: { id: true, name: true, username: true, email: true, image: true } },
           likes: true,
           comments: {
+            take: 10,
             orderBy: { createdAt: 'desc' },
-            include: { author: { select: { name: true, username: true, email: true, image: true } } }
+            include: { author: { select: { id: true, name: true, username: true, email: true, image: true } } }
           }
         }
       },
       comments: {
+        take: 20,
         orderBy: { createdAt: 'desc' },
         include: {
           post: {
             include: {
-              author: { select: { name: true, username: true, email: true, image: true } },
+              author: { select: { id: true, name: true, username: true, email: true, image: true } },
               likes: true,
               comments: {
+                take: 5,
                 orderBy: { createdAt: 'desc' },
-                include: { author: { select: { name: true, username: true, email: true, image: true } } }
+                include: { author: { select: { id: true, name: true, username: true, email: true, image: true } } }
               }
             }
           }
         }
       },
       likes: {
+        take: 20,
         orderBy: { createdAt: 'desc' },
         include: {
           post: {
             include: {
-              author: { select: { name: true, username: true, email: true, image: true } },
+              author: { select: { id: true, name: true, username: true, email: true, image: true } },
               likes: true,
               comments: {
+                take: 5,
                 orderBy: { createdAt: 'desc' },
-                include: { author: { select: { name: true, username: true, email: true, image: true } } }
+                include: { author: { select: { id: true, name: true, username: true, email: true, image: true } } }
               }
             }
           }
@@ -85,13 +91,13 @@ export default async function UserProfilePage({ params }) {
   if (!user) return <div style={{color:'white', padding:'2rem'}}>Kullanıcı bulunamadı.</div>;
 
   const joinedDate = new Date(user.createdAt).toLocaleDateString('tr-TR', { month: 'long', year: 'numeric' });
-  const isOwner = user.username === '@denizscott' || user.username === 'denizscott' || user.email?.includes('denizscott');
+  const isAdmin = user.role === 'ADMIN';
   
-  const currentUser = await prisma.user.findUnique({ where: { id: session.user.id } });
-  const isCurrentUserOwner = currentUser?.username === '@denizscott' || currentUser?.username === 'denizscott' || currentUser?.email?.includes('denizscott');
+  const currentUser = user.id === session.user.id ? user : (await prisma.user.findUnique({ where: { id: session.user.id }, select: { id: true, role: true } }));
+  const isCurrentUserAdmin = currentUser?.role === 'ADMIN';
 
   let isFollowing = false;
-  if (session?.user?.id) {
+  if (session?.user?.id && session.user.id !== user.id) {
     const follow = await prisma.follow.findUnique({
       where: {
         followerId_followingId: {
@@ -113,18 +119,17 @@ export default async function UserProfilePage({ params }) {
         <div>
           <h2 style={{ fontSize: '1.2rem', margin: 0, color: 'var(--text-dark)', fontWeight: 'bold', display: 'flex', alignItems: 'center' }}>
             {user.name}
-            {isOwner && (
-              <span title="Owner of LudenX" style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', background: '#e0245e', color: 'white', borderRadius: '50%', width: '18px', height: '18px', marginLeft: '6px', cursor: 'default' }}>
-                <Crown size={12} strokeWidth={3} />
-              </span>
-            )}
           </h2>
-          <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>{user.posts.length} devlog</span>
+          <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>{user.posts.length} fikir</span>
         </div>
       </div>
 
       <div className={styles.header}>
-        <div className={styles.coverPhoto}></div>
+        <div className={styles.coverPhoto}>
+          {user.bannerImage && (
+            <img src={user.bannerImage} alt="Kapak Fotoğrafı" className={styles.coverPhotoBanner} />
+          )}
+        </div>
         <div className={styles.avatarWrapper}>
            {user.image ? (
              <img src={user.image} alt="Profil" className={styles.avatar} />
@@ -136,7 +141,7 @@ export default async function UserProfilePage({ params }) {
       
       <div className={styles.infoSection}>
         <div className={styles.actionRow} style={{ display: 'flex', gap: '1rem', justifyContent: 'flex-end', alignItems: 'center' }}>
-           {isCurrentUserOwner && user.id !== session.user.id && (
+           {isCurrentUserAdmin && user.id !== session.user.id && (
              <AdminOptionsDropdown targetUserId={user.id} isCurrentlyBanned={user.isBanned} />
            )}
            {user.id === session.user.id ? (
@@ -150,11 +155,6 @@ export default async function UserProfilePage({ params }) {
           <h1 className={styles.name}>{user.name}</h1>
           <p className={styles.username} style={{ display: 'flex', alignItems: 'center' }}>
             {user.username || `@${user.email.split('@')[0]}`}
-            {isOwner && (
-              <span title="Owner of LudenX" style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', background: '#e0245e', color: 'white', borderRadius: '50%', width: '20px', height: '20px', marginLeft: '6px', cursor: 'default' }}>
-                <Crown size={12} strokeWidth={3} />
-              </span>
-            )}
           </p>
           
           <p className={styles.bio}>{user.bio || 'Henüz bir biyografi eklenmedi.'}</p>

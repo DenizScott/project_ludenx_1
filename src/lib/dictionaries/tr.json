@@ -1,7 +1,7 @@
 {
   "login": {
-    "title": "LudenX'e Katıl",
-    "subtitle": "Oyun ekipleri icin devlog ve prototip hub'i.",
+    "title": "LudenOS'e Katıl",
+    "subtitle": "Oyun ekipleri için fikir ve prototip merkezi.",
     "continue_google": "Google ile Devam Et",
     "or": "veya",
     "email": "E-posta",
@@ -12,21 +12,21 @@
   },
   "sidebar": {
     "home": "Akış",
-    "explore": "Vitrin",
+    "explore": "Keşfet",
     "notifications": "Bildirimler",
     "messages": "Mesajlar",
-    "following": "Takımım",
-    "profile": "Stüdyo",
-    "post": "Yeni Devlog"
+    "following": "Takip Edilenler",
+    "profile": "Profil",
+    "post": "Fikir Yayınla"
   },
   "header": {
-    "search_placeholder": "Oyun, ekip veya devlog ara..."
+    "search_placeholder": "Ara"
   },
   "feed": {
     "like": "Tepki",
     "comment": "Not",
     "share": "Yayınla",
-    "trending": "Geliştirici Panosu",
-    "coming_soon": "Build notlari, jam duyurulari ve ekip vitrinleri yakinda."
+    "trending": "Öne Çıkan Fikirler",
+    "coming_soon": "Toplulukta en çok ilgi gören fikirler, projeler ve ekip duyuruları yakında burada listelenecek."
   }
 }

@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from 'react';
 import styles from '@/app/feed/feed.module.css';
-import { Crown, Heart, MessageSquare, Repeat2, Send, Trash2 } from 'lucide-react';
+import { Heart, MessageSquare, Repeat2, Send, Trash2 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import DeletePostButton from './DeletePostButton';
 
@@ -20,8 +20,8 @@ export default function PostCard({ post, currentUser, dict, autoShowComments = f
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [localComments, setLocalComments] = useState(post.comments || []);
 
-  const isOwner = post.author?.username === '@denizscott' || post.author?.username === 'denizscott' || post.author?.email?.includes('denizscott');
-  const isCurrentUserOwner = currentUser?.username === '@denizscott' || currentUser?.username === 'denizscott' || currentUser?.email?.includes('denizscott');
+  const isAdmin = post.author?.role === 'ADMIN';
+  const isCurrentUserAdmin = currentUser?.role === 'ADMIN';
   const authorSlug = post.author?.username?.replace('@', '') || post.author?.email?.split('@')[0];
 
   useEffect(() => {
@@ -146,16 +146,11 @@ export default function PostCard({ post, currentUser, dict, autoShowComments = f
             <button className={styles.authorUsername} onClick={(e) => openAuthor(e)}>
               {post.author?.username || `@${post.author?.email?.split('@')[0]}`}
             </button>
-            {isOwner && (
-              <span className={styles.ownerBadge} title="LudenX kurucusu">
-                <Crown size={11} strokeWidth={3} />
-              </span>
-            )}
             <span>{formatTime(post.createdAt)}</span>
           </div>
         </div>
 
-        {(currentUser?.id === post.authorId || isCurrentUserOwner) && (
+        {(currentUser?.id === post.authorId || isCurrentUserAdmin) && (
           <div className={styles.deleteBtnWrapper}>
             <DeletePostButton postId={post.id} />
           </div>
@@ -163,7 +158,7 @@ export default function PostCard({ post, currentUser, dict, autoShowComments = f
       </header>
 
       <div className={styles.postContent}>
-        <span className={styles.devlogLabel}>Devlog</span>
+        <span className={styles.devlogLabel}>Fikir</span>
         <p>{post.content}</p>
         {post.mediaUrl && (
           <div className={styles.mediaContainer}>
@@ -206,7 +201,7 @@ export default function PostCard({ post, currentUser, dict, autoShowComments = f
           <form onSubmit={handleCommentSubmit} className={styles.commentForm}>
             <input
               type="text"
-              placeholder="Build notuna yorum ekle..."
+              placeholder="Fikre yorum ekle..."
               value={commentText}
               onChange={(e) => setCommentText(e.target.value)}
               disabled={isSubmitting}

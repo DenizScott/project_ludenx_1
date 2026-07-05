@@ -10,11 +10,11 @@ export async function POST(request, { params }) {
     const session = await getServerSession(authOptions);
     if (!session?.user) return NextResponse.json({ error: 'Yetkisiz' }, { status: 401 });
 
-    const currentUser = await prisma.user.findUnique({ where: { id: session.user.id } });
-    const isOwner = currentUser?.username === '@denizscott' || currentUser?.username === 'denizscott' || currentUser?.email?.includes('denizscott');
-
-    if (!isOwner) {
-      return NextResponse.json({ error: 'Sadece kurucu kullanıcıları yasaklayabilir.' }, { status: 403 });
+    if (session.user.role !== 'ADMIN') {
+      const currentUser = await prisma.user.findUnique({ where: { id: session.user.id }, select: { role: true } });
+      if (!currentUser || currentUser.role !== 'ADMIN') {
+        return NextResponse.json({ error: 'Bu işlemi gerçekleştirmek için yönetici (ADMIN) yetkisine sahip olmalısınız.' }, { status: 403 });
+      }
     }
 
     const { banStatus } = await request.json();

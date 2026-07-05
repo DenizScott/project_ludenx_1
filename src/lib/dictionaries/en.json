@@ -1,7 +1,7 @@
 {
   "login": {
-    "title": "Join Ludenx",
-    "subtitle": "A devlog and prototype hub for game teams.",
+    "title": "Join LudenOS",
+    "subtitle": "An idea and prototype hub for game teams.",
     "continue_google": "Continue with Google",
     "or": "or",
     "email": "Email",
@@ -12,21 +12,21 @@
   },
   "sidebar": {
     "home": "Feed",
-    "explore": "Showcase",
+    "explore": "Explore",
     "notifications": "Notifications",
     "messages": "Messages",
-    "following": "My Crew",
-    "profile": "Studio",
-    "post": "New Devlog"
+    "following": "Following",
+    "profile": "Profile",
+    "post": "Publish Idea"
   },
   "header": {
-    "search_placeholder": "Search games, teams, or devlogs..."
+    "search_placeholder": "Search"
   },
   "feed": {
     "like": "React",
     "comment": "Note",
     "share": "Publish",
-    "trending": "Developer Board",
-    "coming_soon": "Build notes, jam calls, and team showcases are coming soon."
+    "trending": "Featured Ideas",
+    "coming_soon": "The most popular ideas, projects, and crew announcements in the community will appear here soon."
   }
 }

@@ -1,7 +1,7 @@
 "use client";
 import { useState } from 'react';
 import styles from '@/app/profile/profile.module.css';
-import PostCard from '@/components/feed/PostCard';
+import FeedListClient from '@/components/feed/FeedListClient';
 
 export default function ProfileTabs({ user, currentUser, dict }) {
   const [activeTab, setActiveTab] = useState('posts'); // posts, replies, media, likes
@@ -20,13 +20,13 @@ export default function ProfileTabs({ user, currentUser, dict }) {
   const getTabContent = () => {
     switch (activeTab) {
       case 'posts':
-        return user.posts?.length === 0 ? <p style={{ color: '#8892B0', textAlign: 'center', marginTop: '2rem' }}>Henüz bir devlog yok.</p> : user.posts?.map(post => <PostCard key={post.id} post={post} currentUser={currentUser} dict={dict} />);
+        return <FeedListClient initialPosts={user.posts || []} currentUser={currentUser} dict={dict} queryKey={['posts', 'profile', user.id, 'posts']} />;
       case 'replies':
-        return uniqueReplies.length === 0 ? <p style={{ color: '#8892B0', textAlign: 'center', marginTop: '2rem' }}>Henüz bir yanıt yok.</p> : uniqueReplies.map(post => <PostCard key={post.id} post={post} currentUser={currentUser} dict={dict} />);
+        return <FeedListClient initialPosts={uniqueReplies} currentUser={currentUser} dict={dict} queryKey={['posts', 'profile', user.id, 'replies']} />;
       case 'media':
-        return mediaPosts.length === 0 ? <p style={{ color: '#8892B0', textAlign: 'center', marginTop: '2rem' }}>Henüz bir medya yok.</p> : mediaPosts.map(post => <PostCard key={post.id} post={post} currentUser={currentUser} dict={dict} />);
+        return <FeedListClient initialPosts={mediaPosts} currentUser={currentUser} dict={dict} queryKey={['posts', 'profile', user.id, 'media']} />;
       case 'likes':
-        return likedPosts.length === 0 ? <p style={{ color: '#8892B0', textAlign: 'center', marginTop: '2rem' }}>Henüz bir tepki yok.</p> : likedPosts.map(post => <PostCard key={post.id} post={post} currentUser={currentUser} dict={dict} />);
+        return <FeedListClient initialPosts={likedPosts} currentUser={currentUser} dict={dict} queryKey={['posts', 'profile', user.id, 'likes']} />;
       default:
         return null;
     }
@@ -35,7 +35,7 @@ export default function ProfileTabs({ user, currentUser, dict }) {
   return (
     <>
       <div className={styles.tabs}>
-        <div className={`${styles.tab} ${activeTab === 'posts' ? styles.activeTab : ''}`} onClick={() => setActiveTab('posts')} style={{cursor:'pointer'}}>Devloglar</div>
+        <div className={`${styles.tab} ${activeTab === 'posts' ? styles.activeTab : ''}`} onClick={() => setActiveTab('posts')} style={{cursor:'pointer'}}>Fikirler</div>
         <div className={`${styles.tab} ${activeTab === 'replies' ? styles.activeTab : ''}`} onClick={() => setActiveTab('replies')} style={{cursor:'pointer'}}>Yanitlar</div>
         <div className={`${styles.tab} ${activeTab === 'media' ? styles.activeTab : ''}`} onClick={() => setActiveTab('media')} style={{cursor:'pointer'}}>Medya</div>
         <div className={`${styles.tab} ${activeTab === 'likes' ? styles.activeTab : ''}`} onClick={() => setActiveTab('likes')} style={{cursor:'pointer'}}>Tepkiler</div>

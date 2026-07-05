@@ -1,15 +1,15 @@
 "use client";
 import { useEffect, useState, useCallback } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
+import { useQuery } from '@tanstack/react-query';
 import styles from './NotificationListener.module.css';
 
 export default function NotificationListener({ currentUserId }) {
-  const [unreadCount, setUnreadCount] = useState(0);
   const [latestNotifId, setLatestNotifId] = useState(null);
   const [toast, setToast] = useState(null);
   const pathname = usePathname();
 
-  const playNotificationSound = () => {
+  const playNotificationSound = useCallback(() => {
     try {
       const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
       const oscillator = audioCtx.createOscillator();
@@ -31,41 +31,41 @@ export default function NotificationListener({ currentUserId }) {
     } catch(e) {
       console.error('Audio play failed', e);
     }
-  };
+  }, []);
 
-  const fetchUnread = useCallback(async () => {
-    if (!currentUserId) return;
-    try {
+  const { data } = useQuery({
+    queryKey: ['notifications', 'unread', currentUserId],
+    queryFn: async () => {
+      if (!currentUserId) return { count: 0, latest: null };
       const res = await fetch('/api/notifications/unread');
-      if (res.ok) {
-        const data = await res.json();
-        setUnreadCount(data.count);
-        
-        if (data.latest && data.latest.id !== latestNotifId && pathname !== '/notifications') {
-          setLatestNotifId(data.latest.id);
-          playNotificationSound();
-          
-          let text = "Yeni bir bildiriminiz var!";
-          if (data.latest.type === 'LIKE') text = `${data.latest.sender.name} gönderinizi beğendi!`;
-          if (data.latest.type === 'COMMENT') text = `${data.latest.sender.name} gönderinize yorum yaptı!`;
-          if (data.latest.type === 'FOLLOW') text = `${data.latest.sender.name} sizi takip etmeye başladı!`;
-          
-          setToast({ message: text, link: '/notifications' });
-          setTimeout(() => setToast(null), 5000);
-        } else if (data.latest) {
-          setLatestNotifId(data.latest.id);
-        }
-      }
-    } catch (err) {
-      console.error(err);
-    }
-  }, [currentUserId, latestNotifId, pathname]);
+      if (!res.ok) throw new Error('Failed to fetch unread');
+      return res.json();
+    },
+    enabled: !!currentUserId,
+    refetchInterval: 15000,
+    staleTime: 10000,
+  });
+
+  const unreadCount = data?.count || 0;
+  const latest = data?.latest || null;
 
   useEffect(() => {
-    fetchUnread();
-    const interval = setInterval(fetchUnread, 15000); 
-    return () => clearInterval(interval);
-  }, [fetchUnread]);
+    if (latest && latest.id !== latestNotifId && pathname !== '/notifications') {
+      setLatestNotifId(latest.id);
+      playNotificationSound();
+      
+      let text = "Yeni bir bildiriminiz var!";
+      if (latest.type === 'LIKE') text = `${latest.sender.name} gönderinizi beğendi!`;
+      if (latest.type === 'COMMENT') text = `${latest.sender.name} gönderinize yorum yaptı!`;
+      if (latest.type === 'REPOST') text = `${latest.sender.name} gönderinizi kayda aldı!`;
+      if (latest.type === 'FOLLOW') text = `${latest.sender.name} sizi takip etmeye başladı!`;
+      
+      setToast({ message: text, link: '/notifications' });
+      setTimeout(() => setToast(null), 5000);
+    } else if (latest) {
+      setLatestNotifId(latest.id);
+    }
+  }, [latest, latestNotifId, pathname, playNotificationSound]);
 
   useEffect(() => {
     if (unreadCount > 0) {

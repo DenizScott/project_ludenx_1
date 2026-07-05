@@ -41,7 +41,7 @@ export default function FollowButton({ targetUserId, isCurrentlyFollowing }) {
         transition: 'all 0.2s'
       }}
     >
-      {isFollowing ? "Ekipte" : "Ekibe al"}
+      {isFollowing ? "Takipte" : "Takip Et"}
     </button>
   );
 }

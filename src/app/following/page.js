@@ -1,7 +1,7 @@
 import { PrismaClient } from '@prisma/client';
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
-import PostCard from '@/components/feed/PostCard';
+import FeedListClient from '@/components/feed/FeedListClient';
 import { getDictionary } from '@/lib/i18n';
 
 const prisma = global.prisma || new PrismaClient();
@@ -40,15 +40,9 @@ export default async function FollowingPage() {
   return (
     <div style={{ paddingBottom: '4rem' }}>
       <div style={{ padding: '1rem 1.5rem', borderBottom: '1px solid rgba(105, 228, 255, 0.12)', fontSize: '1.2rem', fontWeight: 'bold', position: 'sticky', top: 0, background: 'rgba(14, 17, 23, 0.86)', backdropFilter: 'blur(16px)', zIndex: 10 }}>
-        Takımım
+        Takip Edilenler
       </div>
-      {dbPosts.length === 0 ? (
-        <p style={{ color: '#8892B0', textAlign: 'center', marginTop: '2rem' }}>Ekibindeki kişilerin henüz bir devlog'u yok veya kimseyi ekibe almadın.</p>
-      ) : (
-        dbPosts.map(post => (
-          <PostCard key={post.id} post={post} currentUser={dbUser} dict={dict} />
-        ))
-      )}
+      <FeedListClient initialPosts={dbPosts} currentUser={dbUser} dict={dict} queryKey={['posts', 'following']} />
     </div>
   );
 }

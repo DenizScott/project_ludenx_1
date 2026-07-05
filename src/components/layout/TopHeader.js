@@ -13,7 +13,7 @@ export default function TopHeader({ currentUser }) {
   return (
     <header className={styles.header}>
       <div className={styles.mobileTopRow}>
-        <Link href={currentUser ? `/@${currentUser.username?.replace('@', '') || currentUser.email?.split('@')[0]}` : '/profile'} className={styles.profileLink}>
+        <Link href={currentUser ? `/@${currentUser.username?.replace('@', '') || currentUser.email?.split('@')[0]}` : '/profile'} prefetch={true} className={styles.profileLink}>
           {currentUser?.image ? (
             <img src={currentUser.image} alt="Profile" className={styles.avatar} />
           ) : (
@@ -28,18 +28,18 @@ export default function TopHeader({ currentUser }) {
         <div className={styles.mobileSearchWrap}>
           <div className={styles.mobileSearch}>
             <Search size={18} />
-            <input type="text" placeholder="Oyun, ekip veya devlog ara..." />
+            <input type="text" placeholder="Ara" />
           </div>
         </div>
       )}
 
       {isFeed && (
         <div className={styles.tabsRow}>
-          <Link href="/feed" className={`${styles.tab} ${pathname === '/feed' ? styles.activeTab : ''}`}>
-            Akis
+          <Link href="/feed" prefetch={true} className={`${styles.tab} ${pathname === '/feed' ? styles.activeTab : ''}`}>
+            Akış
           </Link>
-          <Link href="/following" className={`${styles.tab} ${pathname === '/following' ? styles.activeTab : ''}`}>
-            Takimim
+          <Link href="/following" prefetch={true} className={`${styles.tab} ${pathname === '/following' ? styles.activeTab : ''}`}>
+            Takip Edilenler
           </Link>
         </div>
       )}

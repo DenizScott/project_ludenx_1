@@ -6,6 +6,8 @@ import { PrismaClient } from '@prisma/client';
 const prisma = global.prisma || new PrismaClient();
 if (process.env.NODE_ENV === "development") global.prisma = prisma;
 
+export const dynamic = 'force-dynamic';
+
 export async function POST(request, { params }) {
   try {
     const session = await getServerSession(authOptions);

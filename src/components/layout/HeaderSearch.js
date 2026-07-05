@@ -1,16 +1,15 @@
 import { Search } from 'lucide-react';
 import styles from './HeaderSearch.module.css';
-import { getDictionary } from '@/lib/i18n';
+import trDict from '@/lib/dictionaries/tr.json';
 
-export default function HeaderSearch() {
-  const dict = getDictionary();
+export default function HeaderSearch({ dict = trDict }) {
   return (
     <header className={styles.header}>
       <div className={styles.searchContainer}>
         <Search className={styles.searchIcon} size={20} />
         <input 
           type="text" 
-          placeholder={dict.header.search_placeholder} 
+          placeholder={dict?.header?.search_placeholder || 'Fikir, proje veya tasarımcı ara...'} 
           className={styles.searchInput}
         />
       </div>

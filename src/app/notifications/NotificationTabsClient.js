@@ -20,11 +20,11 @@ export default function NotificationTabsClient({ notifications }) {
 
   const getMessage = (type, name) => {
     switch (type) {
-      case 'LIKE': return <span><b>{name}</b> devlog'una tepki verdi.</span>;
-      case 'COMMENT': return <span><b>{name}</b> devlog'una not bıraktı.</span>;
-      case 'REPOST': return <span><b>{name}</b> devlog'unu kayda aldı.</span>;
+      case 'LIKE': return <span><b>{name}</b> fikrine tepki verdi.</span>;
+      case 'COMMENT': return <span><b>{name}</b> fikrine not bıraktı.</span>;
+      case 'REPOST': return <span><b>{name}</b> fikrini kayda aldı.</span>;
       case 'FOLLOW': return <span><b>{name}</b> seni ekibine aldı.</span>;
-      case 'MENTION': return <span><b>{name}</b> bir build notunda senden bahsetti.</span>;
+      case 'MENTION': return <span><b>{name}</b> bir fikirde senden bahsetti.</span>;
       default: return <span><b>{name}</b> seninle etkileşime geçti.</span>;
     }
   };

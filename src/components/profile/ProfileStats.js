@@ -18,14 +18,14 @@ export default function ProfileStats({ user, currentUserId }) {
           onClick={() => followingCount > 0 && setShowModal('following')}
           style={{ cursor: followingCount > 0 ? 'pointer' : 'default' }}
         >
-          <span className={styles.statCount}>{followingCount}</span> Ağ
+          <span className={styles.statCount}>{followingCount}</span> Takip edilen
         </div>
         <div 
           className={styles.stat} 
           onClick={() => followersCount > 0 && setShowModal('followers')}
           style={{ cursor: followersCount > 0 ? 'pointer' : 'default' }}
         >
-          <span className={styles.statCount}>{followersCount}</span> Takım
+          <span className={styles.statCount}>{followersCount}</span> Takipçi
         </div>
       </div>
 
@@ -44,7 +44,7 @@ export default function ProfileStats({ user, currentUserId }) {
               padding: '1rem 1.5rem', borderBottom: '1px solid var(--border-dark)', 
               display: 'flex', justifyContent: 'space-between', alignItems: 'center' 
             }}>
-              <h3 style={{ margin: 0, color: 'white' }}>{showModal === 'followers' ? 'Takım' : 'Ağ'}</h3>
+              <h3 style={{ margin: 0, color: 'white' }}>{showModal === 'followers' ? 'Takipçiler' : 'Takip Edilenler'}</h3>
               <button onClick={() => setShowModal(null)} style={{ background: 'transparent', border: 'none', color: 'white', cursor: 'pointer' }}>
                 <X size={24} />
               </button>

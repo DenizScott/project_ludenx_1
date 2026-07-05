@@ -6,6 +6,8 @@ import { PrismaClient } from '@prisma/client';
 const prisma = global.prisma || new PrismaClient();
 if (process.env.NODE_ENV === "development") global.prisma = prisma;
 
+export const dynamic = 'force-dynamic';
+
 export async function POST(request, { params }) {
   try {
     const session = await getServerSession(authOptions);
@@ -54,10 +56,13 @@ export async function DELETE(request, { params }) {
     const comment = await prisma.comment.findUnique({ where: { id: commentId } });
     if (!comment) return NextResponse.json({ error: 'Yorum bulunamadı' }, { status: 404 });
 
-    const currentUser = await prisma.user.findUnique({ where: { id: session.user.id } });
-    const isOwner = currentUser?.username === '@denizscott' || currentUser?.username === 'denizscott' || currentUser?.email?.includes('denizscott');
+    let isAdmin = session.user.role === 'ADMIN';
+    if (!isAdmin) {
+      const currentUser = await prisma.user.findUnique({ where: { id: session.user.id }, select: { role: true } });
+      if (currentUser?.role === 'ADMIN') isAdmin = true;
+    }
 
-    if (comment.authorId !== session.user.id && !isOwner) {
+    if (comment.authorId !== session.user.id && !isAdmin) {
       return NextResponse.json({ error: 'Yetkisiz işlem' }, { status: 403 });
     }
 

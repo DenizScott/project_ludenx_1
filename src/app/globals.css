@@ -1,21 +1,21 @@
 :root {
-  --bg-dark: #0E1117;
+  --bg-dark: #0a101d;
   --bg-light: #F8F9FA;
-  --accent: #69E4FF;
-  --accent-hover: #45CDEB;
-  --accent-cyan: #69E4FF;
-  --accent-amber: #FFBF47;
-  --accent-green: #68F29A;
-  --accent-rose: #FF6B8A;
+  --accent: #38bdf8;
+  --accent-hover: #0ea5e9;
+  --accent-cyan: #38bdf8;
+  --accent-amber: #f59e0b;
+  --accent-green: #10b981;
+  --accent-rose: #f43f5e;
   --text-dark: #FFFFFF;
-  --text-light: #111111;
-  --text-muted: #93A3B8;
+  --text-light: #0f172a;
+  --text-muted: #94a3b8;
   
-  --border-dark: #263241;
-  --card-dark: #151B24;
-  --panel-dark: #101720;
-  --panel-raised: #1A2230;
-  --shadow-soft: 0 18px 48px rgba(0, 0, 0, 0.28);
+  --border-dark: #1e293b;
+  --card-dark: #0f172a;
+  --panel-dark: #0b1322;
+  --panel-raised: #1e293b;
+  --shadow-soft: 0 18px 48px rgba(0, 0, 0, 0.35);
 }
 
 * {
@@ -28,8 +28,9 @@ html, body {
   max-width: 100vw;
   overflow-x: hidden;
   background:
-    radial-gradient(circle at top left, rgba(105, 228, 255, 0.1), transparent 34rem),
-    linear-gradient(180deg, #101722 0%, var(--bg-dark) 36rem);
+    radial-gradient(circle at top right, rgba(56, 189, 248, 0.12), transparent 35rem),
+    radial-gradient(circle at bottom left, rgba(245, 158, 11, 0.08), transparent 30rem),
+    linear-gradient(180deg, #0b1322 0%, var(--bg-dark) 40rem);
   color: var(--text-dark);
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
 }

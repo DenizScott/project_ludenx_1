@@ -35,12 +35,18 @@ model Session {
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
+enum Role {
+  USER
+  ADMIN
+}
+
 model User {
   id            String    @id @default(cuid())
   name          String?
   email         String?   @unique
   emailVerified DateTime?
   image         String?   @db.Text
+  bannerImage   String?   @db.Text
   
   username      String?   @unique
   passwordHash  String?
@@ -49,6 +55,7 @@ model User {
   discordId     String?   @unique
   
   isBanned      Boolean   @default(false)
+  role          Role      @default(USER)
   
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
@@ -78,6 +85,8 @@ model Post {
   content    String
   mediaUrl   String?  @db.Text
   mediaType  String?  
+  isFlagged  Boolean  @default(false)
+  flagReason String?
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
   
@@ -87,6 +96,7 @@ model Post {
   comments      Comment[]
   notifications Notification[]
   likes         Like[]
+  reports       Report[]
 }
 
 model Comment {
@@ -141,4 +151,25 @@ model Like {
   post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
 
   @@unique([userId, postId])
+}
+
+model WordFilter {
+  id        String   @id @default(cuid())
+  keyword   String   @unique
+  severity  String   @default("HIGH")
+  createdAt DateTime @default(now())
+}
+
+model Report {
+  id             String   @id @default(cuid())
+  reason         String
+  details        String?
+  status         String   @default("PENDING") // "PENDING", "RESOLVED", "DISMISSED"
+  createdAt      DateTime @default(now())
+
+  postId         String?
+  post           Post?    @relation(fields: [postId], references: [id], onDelete: Cascade)
+
+  reportedUserId String?
+  reporterId     String?
 }

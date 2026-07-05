@@ -65,7 +65,7 @@ export default function CreatePost({ dict, currentUser }) {
           </div>
           <textarea
             className={styles.textarea}
-            placeholder="Bugun hangi oyun fikri, build notu veya prototip ilerledi?"
+            placeholder="Bugün aklında ne var?"
             value={content}
             onChange={(e) => setContent(e.target.value)}
             disabled={loading}

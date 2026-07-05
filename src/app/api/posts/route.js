@@ -20,13 +20,42 @@ export async function POST(request) {
       return NextResponse.json({ error: 'Gönderi içeriği boş olamaz.' }, { status: 400 });
     }
 
+    const filters = await prisma.wordFilter.findMany();
+    let isFlagged = false;
+    let flagReason = null;
+
+    if (content) {
+      const lowerContent = content.toLowerCase();
+      for (const filter of filters) {
+        if (lowerContent.includes(filter.keyword.toLowerCase())) {
+          isFlagged = true;
+          flagReason = `Süzgeç: "${filter.keyword}" kelimesi tespit edildi.`;
+          break;
+        }
+      }
+    }
+
     const post = await prisma.post.create({
       data: {
         content: content || "",
         mediaUrl: mediaUrl || null,
+        isFlagged,
+        flagReason,
         authorId: session.user.id
       }
     });
+
+    if (isFlagged) {
+      await prisma.report.create({
+        data: {
+          reason: "WORDS_FILTER",
+          details: flagReason,
+          status: "PENDING",
+          postId: post.id,
+          reportedUserId: session.user.id
+        }
+      });
+    }
 
     return NextResponse.json({ message: 'Başarıyla paylaşıldı!', post }, { status: 201 });
   } catch (error) {
