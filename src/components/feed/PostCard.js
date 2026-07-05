@@ -20,8 +20,6 @@ export default function PostCard({ post, currentUser, dict, autoShowComments = f
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [localComments, setLocalComments] = useState(post.comments || []);
 
-  const isAdmin = post.author?.role === 'ADMIN';
-  const isCurrentUserAdmin = currentUser?.role === 'ADMIN';
   const authorSlug = post.author?.username?.replace('@', '') || post.author?.email?.split('@')[0];
 
   useEffect(() => {
@@ -150,7 +148,7 @@ export default function PostCard({ post, currentUser, dict, autoShowComments = f
           </div>
         </div>
 
-        {(currentUser?.id === post.authorId || isCurrentUserAdmin) && (
+        {currentUser?.id === post.authorId && (
           <div className={styles.deleteBtnWrapper}>
             <DeletePostButton postId={post.id} />
           </div>
@@ -226,7 +224,7 @@ export default function PostCard({ post, currentUser, dict, autoShowComments = f
                     </div>
                     <p>{comment.content}</p>
                   </div>
-                  {(currentUser?.id === comment.authorId || isCurrentUserOwner) && (
+                  {currentUser?.id === comment.authorId && (
                     <button
                       className={styles.commentDelete}
                       onClick={(e) => { e.stopPropagation(); handleDeleteComment(comment.id); }}

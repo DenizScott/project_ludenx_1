@@ -163,9 +163,6 @@ export default function SystemHQClient({ initialAuth, initialWords, initialFlagg
               {loading ? "Doğrulanıyor..." : "Ağ Geçidini Aç"}
             </button>
           </form>
-          <div style={{ marginTop: '1.5rem', fontSize: '0.8rem', color: '#64748b' }}>
-            İpucu: Varsayılan PIN <b>2026</b> veya <b>LUDENOS-2026</b>
-          </div>
         </div>
       </div>
     );

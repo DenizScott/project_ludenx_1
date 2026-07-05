@@ -6,7 +6,6 @@ import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { CalendarDays, ArrowLeft } from 'lucide-react';
 import EditProfileModal from '@/components/profile/EditProfileModal';
-import AdminOptionsDropdown from '@/components/profile/AdminOptionsDropdown';
 import FollowButton from '@/components/profile/FollowButton';
 import ProfileStats from '@/components/profile/ProfileStats';
 import ProfileTabs from '@/components/profile/ProfileTabs';
@@ -91,10 +90,8 @@ export default async function UserProfilePage({ params }) {
   if (!user) return <div style={{color:'white', padding:'2rem'}}>Kullanıcı bulunamadı.</div>;
 
   const joinedDate = new Date(user.createdAt).toLocaleDateString('tr-TR', { month: 'long', year: 'numeric' });
-  const isAdmin = user.role === 'ADMIN';
   
   const currentUser = user.id === session.user.id ? user : (await prisma.user.findUnique({ where: { id: session.user.id }, select: { id: true, role: true } }));
-  const isCurrentUserAdmin = currentUser?.role === 'ADMIN';
 
   let isFollowing = false;
   if (session?.user?.id && session.user.id !== user.id) {
@@ -141,9 +138,6 @@ export default async function UserProfilePage({ params }) {
       
       <div className={styles.infoSection}>
         <div className={styles.actionRow} style={{ display: 'flex', gap: '1rem', justifyContent: 'flex-end', alignItems: 'center' }}>
-           {isCurrentUserAdmin && user.id !== session.user.id && (
-             <AdminOptionsDropdown targetUserId={user.id} isCurrentlyBanned={user.isBanned} />
-           )}
            {user.id === session.user.id ? (
              <EditProfileModal user={user} />
            ) : (
