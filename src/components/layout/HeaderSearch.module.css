@@ -1,11 +1,11 @@
 .header {
-  height: 60px;
-  border-bottom: 1px solid var(--border-dark);
+  height: 68px;
+  border-bottom: 1px solid rgba(105, 228, 255, 0.12);
   display: flex;
   align-items: center;
   padding: 0 1rem;
-  background-color: rgba(31, 33, 38, 0.85);
-  backdrop-filter: blur(12px);
+  background-color: rgba(14, 17, 23, 0.82);
+  backdrop-filter: blur(16px);
   position: sticky;
   top: 0;
   z-index: 10;
@@ -15,17 +15,17 @@
   display: flex;
   align-items: center;
   background-color: var(--card-dark);
-  border-radius: 9999px;
-  padding: 0.5rem 1rem;
+  border-radius: 10px;
+  padding: 0.65rem 0.9rem;
   width: 100%;
   max-width: 600px;
-  border: 1px solid transparent;
+  border: 1px solid var(--border-dark);
   transition: border-color 0.2s ease;
 }
 
 .searchContainer:focus-within {
   border-color: var(--accent);
-  background-color: var(--bg-dark);
+  background-color: var(--panel-dark);
 }
 
 .searchIcon {

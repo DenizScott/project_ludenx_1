@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import Cropper from 'react-easy-crop';
 import { getCroppedImg } from '@/lib/cropImage';
 import { Upload, X } from 'lucide-react';
+import BrandMark from '@/components/layout/BrandMark';
 
 export default function LoginClient({ dict }) {
   const router = useRouter();
@@ -125,20 +126,7 @@ export default function LoginClient({ dict }) {
     <div className={styles.container}>
       <div className={styles.authCard}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1.5rem', fontSize: '2rem', fontWeight: 'bold', color: 'white' }}>
-          Luden
-          <svg width="36" height="36" viewBox="0 0 100 100" style={{ marginLeft: '6px', transform: 'translateY(4px)' }}>
-            <defs>
-              <linearGradient id="codeXGradLogin" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="var(--accent)" />
-                <stop offset="100%" stopColor="#d946ef" />
-              </linearGradient>
-            </defs>
-            <g filter="drop-shadow(0px 0px 8px rgba(176,38,255,0.6))">
-              <path d="M 15 15 L 60 50 L 15 85" stroke="url(#codeXGradLogin)" strokeWidth="16" strokeLinecap="round" strokeLinejoin="round" fill="none" />
-              <path d="M 85 15 L 40 50 L 85 85" stroke="url(#codeXGradLogin)" strokeWidth="16" strokeLinecap="round" strokeLinejoin="round" fill="none" opacity="0.85" />
-              <rect x="40" y="90" width="20" height="8" rx="4" fill="var(--accent)" />
-            </g>
-          </svg>
+          <BrandMark size={38} />
         </div>
         <h1 className={styles.title}>{isLogin ? dict.login.title : dict.login.sign_up}</h1>
         <p className={styles.subtitle}>{dict.login.subtitle}</p>

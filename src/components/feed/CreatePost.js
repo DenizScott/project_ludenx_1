@@ -1,8 +1,8 @@
 "use client";
-import { useState, useRef } from 'react';
+import { useRef, useState } from 'react';
 import styles from './CreatePost.module.css';
 import { useRouter } from 'next/navigation';
-import { Image as ImageIcon, FileBox, ListTodo, Smile, CalendarClock, MapPin, X } from 'lucide-react';
+import { CalendarClock, FileBox, Image as ImageIcon, ListTodo, MapPin, Smile, X } from 'lucide-react';
 
 export default function CreatePost({ dict, currentUser }) {
   const router = useRouter();
@@ -17,7 +17,7 @@ export default function CreatePost({ dict, currentUser }) {
       const file = e.target.files[0];
       const reader = new FileReader();
       reader.onload = (event) => {
-        setMediaData(event.target.result); 
+        setMediaData(event.target.result);
       };
       reader.readAsDataURL(file);
     }
@@ -26,7 +26,7 @@ export default function CreatePost({ dict, currentUser }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!content.trim() && !mediaData) return;
-    
+
     setLoading(true);
     setError('');
 
@@ -39,14 +39,14 @@ export default function CreatePost({ dict, currentUser }) {
 
       if (!res.ok) {
         const data = await res.json();
-        setError(data.error || "Bir hata oluştu");
+        setError(data.error || "Bir hata olustu");
       } else {
         setContent('');
         setMediaData(null);
-        router.refresh(); 
+        router.refresh();
       }
     } catch (err) {
-      setError("Bir hata oluştu");
+      setError("Bir hata olustu");
     } finally {
       setLoading(false);
     }
@@ -56,16 +56,16 @@ export default function CreatePost({ dict, currentUser }) {
     <div className={styles.createContainer}>
       <form onSubmit={handleSubmit} className={styles.form}>
         <div className={styles.inputArea}>
-           <div className={styles.avatar}>
-             {currentUser?.image ? (
-               <img src={currentUser.image} className={styles.avatarImg} alt="Profile" />
-             ) : (
-               currentUser?.name ? currentUser.name[0].toUpperCase() : 'U'
-             )}
-           </div>
-           <textarea
+          <div className={styles.avatar}>
+            {currentUser?.image ? (
+              <img src={currentUser.image} className={styles.avatarImg} alt="Profile" />
+            ) : (
+              currentUser?.name ? currentUser.name[0].toUpperCase() : 'U'
+            )}
+          </div>
+          <textarea
             className={styles.textarea}
-            placeholder="Neler geliştiriyorsun? Projeni anlat..."
+            placeholder="Bugun hangi oyun fikri, build notu veya prototip ilerledi?"
             value={content}
             onChange={(e) => setContent(e.target.value)}
             disabled={loading}
@@ -83,27 +83,27 @@ export default function CreatePost({ dict, currentUser }) {
         )}
 
         {error && <p className={styles.error}>{error}</p>}
-        
+
         <div className={styles.footer}>
           <div className={styles.toolbar}>
-             <input 
-               type="file" 
-               accept="image/*" 
-               hidden 
-               ref={fileInputRef} 
-               onChange={handleImageSelect} 
-             />
-             <button type="button" className={styles.toolBtn} onClick={() => fileInputRef.current.click()} title="Fotoğraf">
-               <ImageIcon size={20} />
-             </button>
-             <button type="button" className={styles.toolBtn} title="GIF"><FileBox size={20} /></button>
-             <button type="button" className={styles.toolBtn} title="Anket"><ListTodo size={20} /></button>
-             <button type="button" className={styles.toolBtn} title="Emoji"><Smile size={20} /></button>
-             <button type="button" className={styles.toolBtn} title="Planla"><CalendarClock size={20} /></button>
-             <button type="button" className={styles.toolBtn} title="Konum"><MapPin size={20} /></button>
+            <input
+              type="file"
+              accept="image/*"
+              hidden
+              ref={fileInputRef}
+              onChange={handleImageSelect}
+            />
+            <button type="button" className={styles.toolBtn} onClick={() => fileInputRef.current.click()} title="Gorsel">
+              <ImageIcon size={20} />
+            </button>
+            <button type="button" className={styles.toolBtn} title="GIF"><FileBox size={20} /></button>
+            <button type="button" className={styles.toolBtn} title="Milestone"><ListTodo size={20} /></button>
+            <button type="button" className={styles.toolBtn} title="Emoji"><Smile size={20} /></button>
+            <button type="button" className={styles.toolBtn} title="Planla"><CalendarClock size={20} /></button>
+            <button type="button" className={styles.toolBtn} title="Konum"><MapPin size={20} /></button>
           </div>
           <button type="submit" className={styles.submitBtn} disabled={loading || (!content.trim() && !mediaData)}>
-            {loading ? "Paylaşılıyor..." : "Paylaş"}
+            {loading ? "Yayinlaniyor..." : dict.sidebar.post}
           </button>
         </div>
       </form>

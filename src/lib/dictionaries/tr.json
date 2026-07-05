@@ -1,7 +1,7 @@
 {
   "login": {
-    "title": "Ludenx'e Katıl",
-    "subtitle": "Oyun geliştiricileri için yepyeni bir vitrin.",
+    "title": "LudenX'e Katıl",
+    "subtitle": "Oyun ekipleri icin devlog ve prototip hub'i.",
     "continue_google": "Google ile Devam Et",
     "or": "veya",
     "email": "E-posta",
@@ -11,22 +11,22 @@
     "sign_up": "Kayıt Ol"
   },
   "sidebar": {
-    "home": "Ana Sayfa",
-    "explore": "Keşfet",
+    "home": "Akış",
+    "explore": "Vitrin",
     "notifications": "Bildirimler",
     "messages": "Mesajlar",
-    "following": "Takip Edilenler",
-    "profile": "Profil",
-    "post": "Paylaş"
+    "following": "Takımım",
+    "profile": "Stüdyo",
+    "post": "Yeni Devlog"
   },
   "header": {
-    "search_placeholder": "Oyunları, geliştiricileri veya stüdyoları ara..."
+    "search_placeholder": "Oyun, ekip veya devlog ara..."
   },
   "feed": {
-    "like": "Beğen",
-    "comment": "Yorum Yap",
-    "share": "Paylaş",
-    "trending": "Trend Oyunlar",
-    "coming_soon": "Çok yakında..."
+    "like": "Tepki",
+    "comment": "Not",
+    "share": "Yayınla",
+    "trending": "Geliştirici Panosu",
+    "coming_soon": "Build notlari, jam duyurulari ve ekip vitrinleri yakinda."
   }
 }

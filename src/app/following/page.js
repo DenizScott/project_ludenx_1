@@ -39,11 +39,11 @@ export default async function FollowingPage() {
 
   return (
     <div style={{ paddingBottom: '4rem' }}>
-      <div style={{ padding: '1rem 1.5rem', borderBottom: '1px solid var(--border-dark)', fontSize: '1.2rem', fontWeight: 'bold', position: 'sticky', top: 0, background: 'rgba(176, 38, 255, 0.15)', backdropFilter: 'blur(12px)', zIndex: 10 }}>
-        Takip Edilenler
+      <div style={{ padding: '1rem 1.5rem', borderBottom: '1px solid rgba(105, 228, 255, 0.12)', fontSize: '1.2rem', fontWeight: 'bold', position: 'sticky', top: 0, background: 'rgba(14, 17, 23, 0.86)', backdropFilter: 'blur(16px)', zIndex: 10 }}>
+        Takımım
       </div>
       {dbPosts.length === 0 ? (
-        <p style={{ color: '#8892B0', textAlign: 'center', marginTop: '2rem' }}>Takip ettiğiniz kişilerin henüz bir gönderisi yok veya kimseyi takip etmiyorsunuz.</p>
+        <p style={{ color: '#8892B0', textAlign: 'center', marginTop: '2rem' }}>Ekibindeki kişilerin henüz bir devlog'u yok veya kimseyi ekibe almadın.</p>
       ) : (
         dbPosts.map(post => (
           <PostCard key={post.id} post={post} currentUser={dbUser} dict={dict} />

@@ -2,12 +2,12 @@
   position: fixed;
   bottom: 2rem;
   right: 2rem;
-  background: var(--bg-dark);
-  border: 1px solid var(--accent);
+  background: var(--card-dark);
+  border: 1px solid rgba(105, 228, 255, 0.35);
   color: white;
   padding: 1rem 1.5rem;
   border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(176,38,255,0.3);
+  box-shadow: 0 16px 34px rgba(0, 0, 0, 0.28);
   cursor: pointer;
   z-index: 9999;
   animation: slideIn 0.3s ease-out;

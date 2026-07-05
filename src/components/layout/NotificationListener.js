@@ -79,12 +79,12 @@ export default function NotificationListener({ currentUserId }) {
           badge.style.position = 'absolute';
           badge.style.top = '6px';
           badge.style.left = '32px';
-          badge.style.backgroundColor = '#e0245e';
-          badge.style.color = 'white';
+          badge.style.backgroundColor = 'var(--accent-amber)';
+          badge.style.color = '#081018';
           badge.style.fontSize = '0.7rem';
           badge.style.fontWeight = 'bold';
           badge.style.padding = '2px 6px';
-          badge.style.borderRadius = '10px';
+          badge.style.borderRadius = '6px';
           badge.style.zIndex = '10';
           notifLink.style.position = 'relative';
           notifLink.appendChild(badge);

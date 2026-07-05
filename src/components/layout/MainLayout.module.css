@@ -1,18 +1,20 @@
 .layout {
   display: flex;
   min-height: 100vh;
-  max-width: 1280px;
+  max-width: 1420px;
   margin: 0 auto;
   justify-content: center;
-  gap: 2rem;
+  gap: 1.25rem;
+  padding: 0 1rem;
 }
 
 .mainContent {
   width: 100%;
-  max-width: 600px;
-  border-left: 1px solid var(--border-dark);
-  border-right: 1px solid var(--border-dark);
+  max-width: 760px;
   min-height: 100vh;
+  background: rgba(16, 23, 32, 0.72);
+  border-left: 1px solid rgba(105, 228, 255, 0.08);
+  border-right: 1px solid rgba(105, 228, 255, 0.08);
 }
 
 .feedArea {
@@ -22,8 +24,8 @@
 }
 
 .rightSidebar {
-  width: 350px;
-  padding: 1rem 2rem;
+  width: 320px;
+  padding: 1rem 0;
   display: none;
 }
 
@@ -75,11 +77,20 @@
 }
 
 .placeholderCard {
-  background-color: var(--card-dark);
-  border-radius: 16px;
-  padding: 1.5rem;
+  background:
+    linear-gradient(180deg, rgba(255, 191, 71, 0.08), transparent),
+    var(--card-dark);
+  border-radius: 12px;
+  padding: 1.25rem;
   margin-top: 1rem;
   border: 1px solid var(--border-dark);
+  box-shadow: var(--shadow-soft);
+}
+
+.placeholderCard h3 {
+  font-size: 1rem;
+  margin-bottom: 0.75rem;
+  color: var(--accent-amber);
 }
 
 .muted {
@@ -91,6 +102,7 @@
 @media (max-width: 768px) {
   .layout {
     flex-direction: column;
+    padding: 0;
   }
   .mobileOnlyHeader {
     display: block;
@@ -105,6 +117,7 @@
     border-left: none;
     border-right: none;
     padding-bottom: 70px;
+    background: transparent;
   }
   .rightSidebar {
     display: none;

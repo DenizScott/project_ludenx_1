@@ -47,7 +47,7 @@ export default async function ProfilePage() {
   return (
     <div className={styles.profileContainer}>
       {/* Profil Üst Başlığı (Geri Butonu) */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem', padding: '0.5rem 1.5rem', position: 'sticky', top: 0, background: 'rgba(176, 38, 255, 0.15)', backdropFilter: 'blur(12px)', zIndex: 10, borderBottom: '1px solid var(--border-dark)' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem', padding: '0.65rem 1.5rem', position: 'sticky', top: 0, background: 'rgba(14, 17, 23, 0.86)', backdropFilter: 'blur(16px)', zIndex: 10, borderBottom: '1px solid rgba(105, 228, 255, 0.12)' }}>
         <a href="/feed" style={{ color: 'var(--text-dark)', display: 'flex', alignItems: 'center', justifyContent: 'center', width: '36px', height: '36px', borderRadius: '50%', textDecoration: 'none', cursor: 'pointer' }}>
           <ArrowLeft size={20} />
         </a>
@@ -60,7 +60,7 @@ export default async function ProfilePage() {
               </span>
             )}
           </h2>
-          <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>{user.posts.length} gönderi</span>
+          <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>{user.posts.length} devlog</span>
         </div>
       </div>
 
@@ -83,7 +83,7 @@ export default async function ProfilePage() {
            {user.id === session.user.id ? (
              <EditProfileModal user={user} />
            ) : (
-             <button style={{ padding: '0.6rem 1.2rem', borderRadius: '9999px', background: 'white', color: 'black', fontWeight: 'bold', border: 'none', cursor: 'pointer' }}>Takip Et</button>
+             <button style={{ padding: '0.65rem 1rem', borderRadius: '10px', background: 'var(--accent)', color: '#081018', fontWeight: 'bold', border: 'none', cursor: 'pointer' }}>Ekibe al</button>
            )}
         </div>
         
@@ -106,17 +106,17 @@ export default async function ProfilePage() {
           </div>
           
           <div className={styles.stats}>
-             <div className={styles.stat}><span className={styles.statCount}>0</span> Takip Edilen</div>
-             <div className={styles.stat}><span className={styles.statCount}>0</span> Takipçi</div>
+             <div className={styles.stat}><span className={styles.statCount}>0</span> Ağ</div>
+             <div className={styles.stat}><span className={styles.statCount}>0</span> Takım</div>
           </div>
         </div>
       </div>
       
       <div className={styles.tabs}>
-        <div className={`${styles.tab} ${styles.activeTab}`}>Gönderiler</div>
-        <div className={styles.tab}>Yanıtlar</div>
+        <div className={`${styles.tab} ${styles.activeTab}`}>Devloglar</div>
+        <div className={styles.tab}>Yanitlar</div>
         <div className={styles.tab}>Medya</div>
-        <div className={styles.tab}>Beğeniler</div>
+        <div className={styles.tab}>Tepkiler</div>
       </div>
 
       <div className={styles.postsSection}>

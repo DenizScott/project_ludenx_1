@@ -3,14 +3,16 @@
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  background-color: var(--bg-dark);
+  background:
+    radial-gradient(circle at 20% 15%, rgba(105, 228, 255, 0.16), transparent 26rem),
+    var(--bg-dark);
   padding: 1rem;
 }
 
 .authCard {
-  background-color: var(--card-dark);
-  border: 1px solid var(--border-dark);
-  border-radius: 16px;
+  background-color: rgba(21, 27, 36, 0.92);
+  border: 1px solid rgba(105, 228, 255, 0.16);
+  border-radius: 12px;
   padding: 3rem;
   width: 100%;
   max-width: 450px;
@@ -43,7 +45,7 @@
   border: 1px solid var(--border-dark);
   color: var(--text-dark);
   padding: 0.75rem;
-  border-radius: 9999px;
+  border-radius: 10px;
   font-size: 1rem;
   font-weight: 500;
   cursor: pointer;
@@ -51,7 +53,7 @@
 }
 
 .oauthButton:hover {
-  background-color: rgba(255, 255, 255, 0.05);
+  background-color: rgba(105, 228, 255, 0.08);
 }
 
 .divider {
@@ -97,10 +99,10 @@
 }
 
 .submitButton {
-  background-color: var(--accent);
-  color: white;
+  background: linear-gradient(135deg, var(--accent-cyan), var(--accent-amber));
+  color: #081018;
   border: none;
-  border-radius: 9999px;
+  border-radius: 10px;
   padding: 1rem;
   font-size: 1.1rem;
   font-weight: bold;
@@ -110,7 +112,7 @@
 }
 
 .submitButton:hover {
-  background-color: var(--accent-hover);
+  filter: brightness(1.05);
 }
 
 .footerText {

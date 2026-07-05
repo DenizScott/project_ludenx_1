@@ -2,7 +2,7 @@ import './globals.css';
 import AuthProvider from '@/components/providers/AuthProvider';
 
 export const metadata = {
-  title: 'Ludenx',
+  title: 'LudenX',
   description: 'The modern social platform for game developers and designers.',
 };
 

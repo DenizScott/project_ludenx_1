@@ -20,13 +20,13 @@ export default function ProfileTabs({ user, currentUser, dict }) {
   const getTabContent = () => {
     switch (activeTab) {
       case 'posts':
-        return user.posts?.length === 0 ? <p style={{ color: '#8892B0', textAlign: 'center', marginTop: '2rem' }}>Henüz bir gönderi yok.</p> : user.posts?.map(post => <PostCard key={post.id} post={post} currentUser={currentUser} dict={dict} />);
+        return user.posts?.length === 0 ? <p style={{ color: '#8892B0', textAlign: 'center', marginTop: '2rem' }}>Henüz bir devlog yok.</p> : user.posts?.map(post => <PostCard key={post.id} post={post} currentUser={currentUser} dict={dict} />);
       case 'replies':
         return uniqueReplies.length === 0 ? <p style={{ color: '#8892B0', textAlign: 'center', marginTop: '2rem' }}>Henüz bir yanıt yok.</p> : uniqueReplies.map(post => <PostCard key={post.id} post={post} currentUser={currentUser} dict={dict} />);
       case 'media':
         return mediaPosts.length === 0 ? <p style={{ color: '#8892B0', textAlign: 'center', marginTop: '2rem' }}>Henüz bir medya yok.</p> : mediaPosts.map(post => <PostCard key={post.id} post={post} currentUser={currentUser} dict={dict} />);
       case 'likes':
-        return likedPosts.length === 0 ? <p style={{ color: '#8892B0', textAlign: 'center', marginTop: '2rem' }}>Henüz bir beğeni yok.</p> : likedPosts.map(post => <PostCard key={post.id} post={post} currentUser={currentUser} dict={dict} />);
+        return likedPosts.length === 0 ? <p style={{ color: '#8892B0', textAlign: 'center', marginTop: '2rem' }}>Henüz bir tepki yok.</p> : likedPosts.map(post => <PostCard key={post.id} post={post} currentUser={currentUser} dict={dict} />);
       default:
         return null;
     }
@@ -35,10 +35,10 @@ export default function ProfileTabs({ user, currentUser, dict }) {
   return (
     <>
       <div className={styles.tabs}>
-        <div className={`${styles.tab} ${activeTab === 'posts' ? styles.activeTab : ''}`} onClick={() => setActiveTab('posts')} style={{cursor:'pointer'}}>Gönderiler</div>
-        <div className={`${styles.tab} ${activeTab === 'replies' ? styles.activeTab : ''}`} onClick={() => setActiveTab('replies')} style={{cursor:'pointer'}}>Yanıtlar</div>
+        <div className={`${styles.tab} ${activeTab === 'posts' ? styles.activeTab : ''}`} onClick={() => setActiveTab('posts')} style={{cursor:'pointer'}}>Devloglar</div>
+        <div className={`${styles.tab} ${activeTab === 'replies' ? styles.activeTab : ''}`} onClick={() => setActiveTab('replies')} style={{cursor:'pointer'}}>Yanitlar</div>
         <div className={`${styles.tab} ${activeTab === 'media' ? styles.activeTab : ''}`} onClick={() => setActiveTab('media')} style={{cursor:'pointer'}}>Medya</div>
-        <div className={`${styles.tab} ${activeTab === 'likes' ? styles.activeTab : ''}`} onClick={() => setActiveTab('likes')} style={{cursor:'pointer'}}>Beğeniler</div>
+        <div className={`${styles.tab} ${activeTab === 'likes' ? styles.activeTab : ''}`} onClick={() => setActiveTab('likes')} style={{cursor:'pointer'}}>Tepkiler</div>
       </div>
       <div className={styles.postsSection}>
         {getTabContent()}

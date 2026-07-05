@@ -38,13 +38,13 @@ export default async function SinglePostPage({ params }) {
     <div style={{ paddingBottom: '4rem' }}>
       <div style={{ 
         padding: '0.5rem 1.5rem', 
-        borderBottom: '1px solid var(--border-dark)', 
+        borderBottom: '1px solid rgba(105, 228, 255, 0.12)', 
         fontSize: '1.2rem', 
         fontWeight: 'bold',
         position: 'sticky', 
         top: 0, 
-        background: 'rgba(176, 38, 255, 0.15)', 
-        backdropFilter: 'blur(12px)', 
+        background: 'rgba(14, 17, 23, 0.86)', 
+        backdropFilter: 'blur(16px)', 
         zIndex: 10,
         display: 'flex',
         alignItems: 'center',
@@ -53,7 +53,7 @@ export default async function SinglePostPage({ params }) {
         <Link href="/feed" style={{ color: 'var(--text-dark)', display: 'flex', alignItems: 'center', justifyContent: 'center', width: '36px', height: '36px', borderRadius: '50%', textDecoration: 'none', cursor: 'pointer' }}>
           <ArrowLeft size={20} />
         </Link>
-        Gönderi
+        Devlog
       </div>
       <PostCard post={post} currentUser={dbUser} dict={dict} autoShowComments={true} />
     </div>

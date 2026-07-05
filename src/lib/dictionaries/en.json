@@ -1,7 +1,7 @@
 {
   "login": {
     "title": "Join Ludenx",
-    "subtitle": "The premier showcase for game developers.",
+    "subtitle": "A devlog and prototype hub for game teams.",
     "continue_google": "Continue with Google",
     "or": "or",
     "email": "Email",
@@ -11,22 +11,22 @@
     "sign_up": "Sign up"
   },
   "sidebar": {
-    "home": "Home",
-    "explore": "Explore",
+    "home": "Feed",
+    "explore": "Showcase",
     "notifications": "Notifications",
     "messages": "Messages",
-    "following": "Following",
-    "profile": "Profile",
-    "post": "Post"
+    "following": "My Crew",
+    "profile": "Studio",
+    "post": "New Devlog"
   },
   "header": {
-    "search_placeholder": "Search games, devs, or studios..."
+    "search_placeholder": "Search games, teams, or devlogs..."
   },
   "feed": {
-    "like": "Like",
-    "comment": "Comment",
-    "share": "Share",
-    "trending": "Trending Games",
-    "coming_soon": "Coming soon..."
+    "like": "React",
+    "comment": "Note",
+    "share": "Publish",
+    "trending": "Developer Board",
+    "coming_soon": "Build notes, jam calls, and team showcases are coming soon."
   }
 }

@@ -3,7 +3,6 @@ import TopHeader from './TopHeader';
 import HeaderSearch from './HeaderSearch';
 import styles from './MainLayout.module.css';
 import { getDictionary } from '@/lib/i18n';
-import { Search } from 'lucide-react';
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { PrismaClient } from '@prisma/client';

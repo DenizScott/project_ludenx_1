@@ -106,7 +106,7 @@ export default async function UserProfilePage({ params }) {
   return (
     <div className={styles.profileContainer}>
       {/* Profil Üst Başlığı (Geri Butonu) */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem', padding: '0.5rem 1.5rem', position: 'sticky', top: 0, background: 'rgba(176, 38, 255, 0.15)', backdropFilter: 'blur(12px)', zIndex: 10, borderBottom: '1px solid var(--border-dark)' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem', padding: '0.65rem 1.5rem', position: 'sticky', top: 0, background: 'rgba(14, 17, 23, 0.86)', backdropFilter: 'blur(16px)', zIndex: 10, borderBottom: '1px solid rgba(105, 228, 255, 0.12)' }}>
         <a href="/feed" style={{ color: 'var(--text-dark)', display: 'flex', alignItems: 'center', justifyContent: 'center', width: '36px', height: '36px', borderRadius: '50%', textDecoration: 'none', cursor: 'pointer' }}>
           <ArrowLeft size={20} />
         </a>
@@ -119,7 +119,7 @@ export default async function UserProfilePage({ params }) {
               </span>
             )}
           </h2>
-          <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>{user.posts.length} gönderi</span>
+          <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>{user.posts.length} devlog</span>
         </div>
       </div>
 

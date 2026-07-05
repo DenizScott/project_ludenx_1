@@ -32,8 +32,8 @@ export default async function NotificationsPage() {
 
   return (
     <div style={{ paddingBottom: '4rem' }}>
-      <div style={{ padding: '1rem 1.5rem', fontSize: '1.2rem', fontWeight: 'bold', position: 'sticky', top: 0, background: 'rgba(176, 38, 255, 0.15)', backdropFilter: 'blur(12px)', zIndex: 10 }}>
-        Bildirimler
+      <div style={{ padding: '1rem 1.5rem', fontSize: '1.2rem', fontWeight: 'bold', position: 'sticky', top: 0, background: 'rgba(14, 17, 23, 0.86)', backdropFilter: 'blur(16px)', zIndex: 10, borderBottom: '1px solid rgba(105, 228, 255, 0.12)' }}>
+        Kontrol Odası
       </div>
       <NotificationTabsClient notifications={notifications} />
     </div>

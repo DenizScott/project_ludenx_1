@@ -31,9 +31,9 @@ export default function FollowButton({ targetUserId, isCurrentlyFollowing }) {
       disabled={isLoading}
       style={{ 
         padding: '0.6rem 1.2rem', 
-        borderRadius: '9999px', 
-        background: isFollowing ? 'transparent' : 'white', 
-        color: isFollowing ? 'white' : 'black', 
+        borderRadius: '10px', 
+        background: isFollowing ? 'transparent' : 'var(--accent)', 
+        color: isFollowing ? 'white' : '#081018', 
         fontWeight: 'bold', 
         border: isFollowing ? '1px solid var(--border-dark)' : 'none', 
         cursor: isLoading ? 'not-allowed' : 'pointer',
@@ -41,7 +41,7 @@ export default function FollowButton({ targetUserId, isCurrentlyFollowing }) {
         transition: 'all 0.2s'
       }}
     >
-      {isFollowing ? "Takip Ediliyor" : "Takip Et"}
+      {isFollowing ? "Ekipte" : "Ekibe al"}
     </button>
   );
 }

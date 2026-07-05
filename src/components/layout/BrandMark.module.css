@@ -1,0 +1,56 @@
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  color: var(--text-dark);
+  font-weight: 800;
+  letter-spacing: 0;
+}
+
+.badge {
+  width: var(--brand-size, 34px);
+  height: var(--brand-size, 34px);
+  border: 1px solid rgba(105, 228, 255, 0.42);
+  border-radius: 10px;
+  background:
+    linear-gradient(135deg, rgba(105, 228, 255, 0.22), rgba(255, 191, 71, 0.12)),
+    var(--panel-dark);
+  box-shadow: 0 0 22px rgba(105, 228, 255, 0.15);
+  display: grid;
+  place-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.badge::before,
+.badge::after {
+  content: "";
+  position: absolute;
+  background: var(--accent-cyan);
+  border-radius: 999px;
+}
+
+.badge::before {
+  width: 58%;
+  height: 4px;
+}
+
+.badge::after {
+  width: 4px;
+  height: 58%;
+}
+
+.pixel {
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  right: 7px;
+  bottom: 7px;
+  border-radius: 2px;
+  background: var(--accent-amber);
+  box-shadow: -14px -14px 0 rgba(255, 255, 255, 0.2);
+}
+
+.word {
+  line-height: 1;
+}
