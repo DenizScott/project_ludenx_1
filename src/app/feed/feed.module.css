@@ -309,8 +309,11 @@
 
 @media (max-width: 640px) {
   .postCard {
-    margin: 0 1rem 1rem;
+    margin: 0 0 0.75rem;
     padding: 1rem;
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
   }
 
   .postContent,
@@ -318,6 +321,10 @@
   .commentsPanel {
     padding-left: 0;
     margin-left: 0;
+  }
+
+  .feedContainer {
+    padding-bottom: 80px;
   }
 }
 
