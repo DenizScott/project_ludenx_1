@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from 'react';
 import styles from '@/app/feed/feed.module.css';
-import { Heart, MessageSquare, Repeat2, Send, Trash2 } from 'lucide-react';
+import { Heart, MessageSquare, Repeat2, Send, Trash2, FileBox, BarChart2, Check, Download } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import DeletePostButton from './DeletePostButton';
 
@@ -157,7 +157,7 @@ export default function PostCard({ post, currentUser, dict, autoShowComments = f
 
       <div className={styles.postContent}>
         <span className={styles.devlogLabel}>Fikir</span>
-        <p>{post.content}</p>
+        <FormattedPostContent text={post.content} />
         {post.mediaUrl && (
           <div className={styles.mediaContainer}>
             <img src={post.mediaUrl} alt="Post media" className={styles.media} />
@@ -242,3 +242,112 @@ export default function PostCard({ post, currentUser, dict, autoShowComments = f
     </article>
   );
 }
+
+function FormattedPostContent({ text }) {
+  if (!text) return null;
+  let mainText = text;
+  let fileAsset = null;
+  let pollAsset = null;
+
+  // Parse [FILE_ASSET:{...}]
+  const fileMatch = mainText.match(/\[FILE_ASSET:(.*?)\]/);
+  if (fileMatch) {
+    try {
+      fileAsset = JSON.parse(fileMatch[1]);
+      mainText = mainText.replace(fileMatch[0], '').trim();
+    } catch (e) {}
+  }
+
+  // Parse [POLL_ASSET:{...}]
+  const pollMatch = mainText.match(/\[POLL_ASSET:(.*?)\]/);
+  if (pollMatch) {
+    try {
+      pollAsset = JSON.parse(pollMatch[1]);
+      mainText = mainText.replace(pollMatch[0], '').trim();
+    } catch (e) {}
+  }
+
+  // Legacy check for string poll format
+  const legacyPollIdx = mainText.indexOf("📊 Anket / Görev Listesi:");
+  if (!pollAsset && legacyPollIdx !== -1) {
+    const pollSection = mainText.substring(legacyPollIdx);
+    mainText = mainText.substring(0, legacyPollIdx).trim();
+    const lines = pollSection.split('\n').map(l => l.trim()).filter(Boolean);
+    const options = [];
+    lines.forEach(l => {
+      if (l.startsWith('[ ]') || l.startsWith('[x]')) {
+        options.push(l.replace(/\[[ x]\]/, '').trim());
+      }
+    });
+    if (options.length > 0) pollAsset = { options };
+  }
+
+  // Legacy check for 3D Model file string
+  const legacyFileMatch = mainText.match(/📁 \[3D Model \/ Dosya:(.*?)\]/);
+  if (!fileAsset && legacyFileMatch) {
+    fileAsset = { name: legacyFileMatch[1].trim(), size: "Varlık Paketi", type: "3D MODEL" };
+    mainText = mainText.replace(legacyFileMatch[0], '').trim();
+  }
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
+      {mainText && <p style={{ whiteSpace: 'pre-line', margin: 0, lineHeight: '1.5' }}>{mainText}</p>}
+
+      {fileAsset && (
+        <div style={{ padding: '0.85rem 1.2rem', background: 'var(--panel-raised)', border: '1px solid rgba(105, 228, 255, 0.28)', borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%', marginTop: '0.4rem', boxShadow: '0 4px 12px rgba(0,0,0,0.25)' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem', overflow: 'hidden' }}>
+            <div style={{ width: '42px', height: '42px', borderRadius: '10px', background: 'rgba(105, 228, 255, 0.12)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--accent)', flexShrink: 0 }}>
+              <FileBox size={22} />
+            </div>
+            <div style={{ overflow: 'hidden' }}>
+              <div style={{ color: 'white', fontWeight: 'bold', fontSize: '0.95rem', textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap' }}>{fileAsset.name}</div>
+              <div style={{ display: 'flex', gap: '0.5rem', marginTop: '0.2rem', alignItems: 'center' }}>
+                <span style={{ fontSize: '0.72rem', background: 'var(--card-dark)', padding: '0.1rem 0.5rem', borderRadius: '4px', color: 'var(--accent)', fontWeight: 'bold' }}>{fileAsset.type || '3D MODEL'}</span>
+                <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>{fileAsset.size || 'Proje Dosyası'}</span>
+              </div>
+            </div>
+          </div>
+          <button
+            onClick={(e) => { e.stopPropagation(); alert(`${fileAsset.name} varlık dosyası indiriliyor / önizleniyor...`); }}
+            style={{ background: 'linear-gradient(135deg, var(--accent-cyan), var(--accent-amber))', color: '#081018', border: 'none', padding: '0.5rem 1rem', borderRadius: '8px', fontWeight: 'bold', fontSize: '0.85rem', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.4rem', flexShrink: 0, transition: 'transform 0.2s' }}
+          >
+            <Download size={15} /> İndir
+          </button>
+        </div>
+      )}
+
+      {pollAsset && pollAsset.options && (
+        <div style={{ padding: '1rem', background: 'var(--panel-raised)', border: '1px solid rgba(255, 191, 71, 0.28)', borderRadius: '12px', display: 'flex', flexDirection: 'column', gap: '0.6rem', marginTop: '0.4rem', boxShadow: '0 4px 12px rgba(0,0,0,0.25)' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'var(--accent-amber)', fontWeight: 'bold', fontSize: '0.95rem', borderBottom: '1px solid rgba(255, 191, 71, 0.15)', paddingBottom: '0.4rem' }}>
+            <BarChart2 size={18} /> Topluluk Anketi & Görev Oylaması
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', marginTop: '0.2rem' }}>
+            {pollAsset.options.map((opt, idx) => (
+              <PollOptionRow key={idx} opt={opt} />
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+function PollOptionRow({ opt }) {
+  const [voted, setVoted] = useState(false);
+  const [votesCount, setVotesCount] = useState(Math.floor(Math.random() * 14) + 2);
+  return (
+    <div
+      onClick={(e) => { e.stopPropagation(); setVoted(!voted); setVotesCount(prev => voted ? prev - 1 : prev + 1); }}
+      style={{ padding: '0.65rem 0.9rem', background: voted ? 'rgba(255, 191, 71, 0.15)' : 'var(--card-dark)', border: `1px solid ${voted ? 'var(--accent-amber)' : 'var(--border-dark)'}`, borderRadius: '8px', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'space-between', transition: 'all 0.2s' }}
+    >
+      <div style={{ display: 'flex', alignItems: 'center', gap: '0.7rem' }}>
+        <div style={{ width: '20px', height: '20px', borderRadius: '5px', border: `2px solid ${voted ? 'var(--accent-amber)' : 'var(--text-muted)'}`, background: voted ? 'var(--accent-amber)' : 'transparent', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          {voted && <Check size={13} color="#081018" strokeWidth={3} />}
+        </div>
+        <span style={{ color: voted ? 'white' : 'var(--text-dark)', fontWeight: voted ? 'bold' : 'normal', fontSize: '0.92rem' }}>{opt}</span>
+      </div>
+      <span style={{ fontSize: '0.8rem', color: voted ? 'var(--accent-amber)' : 'var(--text-muted)', fontWeight: voted ? 'bold' : 'normal' }}>{votesCount} oy</span>
+    </div>
+  );
+}
+
