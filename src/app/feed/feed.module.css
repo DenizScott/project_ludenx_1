@@ -16,12 +16,15 @@
   position: relative;
   cursor: pointer;
   overflow: hidden;
-  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  content-visibility: auto;
+  contain-intrinsic-size: 200px;
+  transform: translateZ(0);
 }
 
 .postCard:hover {
   border-color: rgba(105, 228, 255, 0.42);
-  transform: translateY(-2px);
+  transform: translateY(-2px) translateZ(0);
 }
 
 .devlogStripe {

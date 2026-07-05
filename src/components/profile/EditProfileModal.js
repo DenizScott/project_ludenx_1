@@ -56,7 +56,7 @@ export default function EditProfileModal({ user }) {
 
   const showCroppedImage = useCallback(async () => {
     try {
-      const croppedImage = await getCroppedImg(imageSrc, croppedAreaPixels);
+      const croppedImage = await getCroppedImg(imageSrc, croppedAreaPixels, cropType === 'banner');
       if (cropType === 'avatar') {
         setFinalImage(croppedImage);
       } else {

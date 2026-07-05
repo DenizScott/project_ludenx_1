@@ -25,12 +25,14 @@ export default async function FollowingPage() {
   const followingIds = dbUser?.following.map(f => f.followingId) || [];
 
   const dbPosts = await prisma.post.findMany({
+    take: 20,
     where: { authorId: { in: followingIds } },
     orderBy: { createdAt: 'desc' },
     include: {
       author: { select: { name: true, username: true, email: true, image: true } },
       likes: true,
       comments: {
+        take: 5,
         orderBy: { createdAt: 'desc' },
         include: { author: { select: { name: true, username: true, email: true, image: true } } }
       }
@@ -39,7 +41,7 @@ export default async function FollowingPage() {
 
   return (
     <div style={{ paddingBottom: '4rem' }}>
-      <div style={{ padding: '1rem 1.5rem', borderBottom: '1px solid rgba(105, 228, 255, 0.12)', fontSize: '1.2rem', fontWeight: 'bold', position: 'sticky', top: 0, background: 'rgba(14, 17, 23, 0.86)', backdropFilter: 'blur(16px)', zIndex: 10 }}>
+      <div style={{ padding: '1rem 1.5rem', borderBottom: '1px solid rgba(105, 228, 255, 0.12)', fontSize: '1.2rem', fontWeight: 'bold', position: 'sticky', top: 0, background: 'rgba(14, 17, 23, 0.86)', backdropFilter: 'blur(8px)', WebkitBackdropFilter: 'blur(8px)', transform: 'translateZ(0)', zIndex: 10 }}>
         Takip Edilenler
       </div>
       <FeedListClient initialPosts={dbPosts} currentUser={dbUser} dict={dict} queryKey={['posts', 'following']} />

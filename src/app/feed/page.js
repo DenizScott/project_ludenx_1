@@ -20,6 +20,7 @@ export default async function FeedPage() {
   }
 
   const dbPosts = await prisma.post.findMany({
+    take: 20,
     orderBy: { createdAt: 'desc' },
     include: {
       author: {
@@ -27,6 +28,7 @@ export default async function FeedPage() {
       },
       likes: true,
       comments: {
+        take: 5,
         orderBy: { createdAt: 'desc' },
         include: {
           author: { select: { name: true, username: true, email: true, image: true } }

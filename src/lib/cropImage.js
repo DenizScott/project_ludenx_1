@@ -6,7 +6,7 @@ export const createImage = (url) =>
     image.src = url
   })
 
-export async function getCroppedImg(imageSrc, pixelCrop) {
+export async function getCroppedImg(imageSrc, pixelCrop, isBanner = false) {
   const image = await createImage(imageSrc)
   const canvas = document.createElement('canvas')
   const ctx = canvas.getContext('2d')
@@ -15,9 +15,10 @@ export async function getCroppedImg(imageSrc, pixelCrop) {
     return null
   }
 
-  const AVATAR_SIZE = 400;
-  canvas.width = AVATAR_SIZE;
-  canvas.height = AVATAR_SIZE;
+  const targetWidth = isBanner ? 700 : 150;
+  const targetHeight = isBanner ? 200 : 150;
+  canvas.width = targetWidth;
+  canvas.height = targetHeight;
 
   ctx.drawImage(
     image,
@@ -27,9 +28,9 @@ export async function getCroppedImg(imageSrc, pixelCrop) {
     pixelCrop.height,
     0,
     0,
-    AVATAR_SIZE,
-    AVATAR_SIZE
+    targetWidth,
+    targetHeight
   )
 
-  return canvas.toDataURL('image/jpeg', 0.6);
+  return canvas.toDataURL('image/jpeg', 0.5);
 }

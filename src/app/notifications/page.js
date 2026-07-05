@@ -17,6 +17,7 @@ export default async function NotificationsPage() {
   }
 
   const notifications = await prisma.notification.findMany({
+    take: 30,
     where: { recipientId: session.user.id },
     orderBy: { createdAt: 'desc' },
     include: {
@@ -32,7 +33,7 @@ export default async function NotificationsPage() {
 
   return (
     <div style={{ paddingBottom: '4rem' }}>
-      <div style={{ padding: '1rem 1.5rem', fontSize: '1.2rem', fontWeight: 'bold', position: 'sticky', top: 0, background: 'rgba(14, 17, 23, 0.86)', backdropFilter: 'blur(16px)', zIndex: 10, borderBottom: '1px solid rgba(105, 228, 255, 0.12)' }}>
+      <div style={{ padding: '1rem 1.5rem', fontSize: '1.2rem', fontWeight: 'bold', position: 'sticky', top: 0, background: 'rgba(14, 17, 23, 0.86)', backdropFilter: 'blur(8px)', WebkitBackdropFilter: 'blur(8px)', transform: 'translateZ(0)', zIndex: 10, borderBottom: '1px solid rgba(105, 228, 255, 0.12)' }}>
         Kontrol Odası
       </div>
       <NotificationTabsClient notifications={notifications} />
