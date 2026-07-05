@@ -9,6 +9,7 @@ import EditProfileModal from '@/components/profile/EditProfileModal';
 import FollowButton from '@/components/profile/FollowButton';
 import ProfileStats from '@/components/profile/ProfileStats';
 import ProfileTabs from '@/components/profile/ProfileTabs';
+import ProfileMoreMenu from '@/components/profile/ProfileMoreMenu';
 
 const prisma = global.prisma || new PrismaClient();
 if (process.env.NODE_ENV === "development") global.prisma = prisma;
@@ -137,11 +138,17 @@ export default async function UserProfilePage({ params }) {
       </div>
       
       <div className={styles.infoSection}>
-        <div className={styles.actionRow} style={{ display: 'flex', gap: '1rem', justifyContent: 'flex-end', alignItems: 'center' }}>
+        <div className={styles.actionRow} style={{ display: 'flex', gap: '0.75rem', justifyContent: 'flex-end', alignItems: 'center' }}>
            {user.id === session.user.id ? (
-             <EditProfileModal user={user} />
+             <>
+               <EditProfileModal user={user} />
+               <ProfileMoreMenu user={user} direction="down" />
+             </>
            ) : (
-             <FollowButton targetUserId={user.id} isCurrentlyFollowing={isFollowing} />
+             <>
+               <FollowButton targetUserId={user.id} isCurrentlyFollowing={isFollowing} />
+               <ProfileMoreMenu user={user} direction="down" />
+             </>
            )}
         </div>
         

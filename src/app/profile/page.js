@@ -7,6 +7,7 @@ import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { CalendarDays, ArrowLeft } from 'lucide-react';
 import EditProfileModal from '@/components/profile/EditProfileModal';
+import ProfileMoreMenu from '@/components/profile/ProfileMoreMenu';
 
 const prisma = global.prisma || new PrismaClient();
 if (process.env.NODE_ENV === "development") global.prisma = prisma;
@@ -112,11 +113,17 @@ export default async function ProfilePage() {
       </div>
       
       <div className={styles.infoSection}>
-        <div className={styles.actionRow} style={{ display: 'flex', gap: '1rem', justifyContent: 'flex-end' }}>
+        <div className={styles.actionRow} style={{ display: 'flex', gap: '0.75rem', justifyContent: 'flex-end', alignItems: 'center' }}>
            {user.id === session.user.id ? (
-             <EditProfileModal user={user} />
+             <>
+               <EditProfileModal user={user} />
+               <ProfileMoreMenu user={user} direction="down" />
+             </>
            ) : (
-             <button style={{ padding: '0.65rem 1rem', borderRadius: '10px', background: 'var(--accent)', color: '#081018', fontWeight: 'bold', border: 'none', cursor: 'pointer' }}>Ekibe al</button>
+             <>
+               <button style={{ padding: '0.65rem 1rem', borderRadius: '10px', background: 'var(--accent)', color: '#081018', fontWeight: 'bold', border: 'none', cursor: 'pointer' }}>Ekibe al</button>
+               <ProfileMoreMenu user={user} direction="down" />
+             </>
            )}
         </div>
         
