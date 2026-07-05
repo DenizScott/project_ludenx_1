@@ -23,9 +23,9 @@
     "search_placeholder": "Ara"
   },
   "feed": {
-    "like": "Tepki",
-    "comment": "Not",
-    "share": "Yayınla",
+    "like": "Beğen",
+    "comment": "Yorumla",
+    "share": "Tekrar Paylaş",
     "trending": "Öne Çıkan Fikirler",
     "coming_soon": "Toplulukta en çok ilgi gören fikirler, projeler ve ekip duyuruları yakında burada listelenecek."
   }

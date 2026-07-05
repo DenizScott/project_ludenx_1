@@ -1,11 +1,45 @@
-import { Telescope } from 'lucide-react';
+import { PrismaClient } from '@prisma/client';
+import { getServerSession } from "next-auth/next";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { getDictionary } from '@/lib/i18n';
+import ExploreClient from './ExploreClient';
 
-export default function ExplorePage() {
+const prisma = global.prisma || new PrismaClient();
+if (process.env.NODE_ENV === "development") global.prisma = prisma;
+
+export const dynamic = 'force-dynamic';
+
+export default async function ExplorePage() {
+  const dict = getDictionary();
+  const session = await getServerSession(authOptions);
+  let dbUser = null;
+  if (session?.user?.id) {
+    dbUser = await prisma.user.findUnique({ where: { id: session.user.id } });
+  }
+
+  // Fetch posts from the last 30 days to populate daily, weekly, and monthly tabs
+  const thirtyDaysAgo = new Date();
+  thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+
+  const dbPosts = await prisma.post.findMany({
+    take: 50,
+    where: {
+      createdAt: { gte: thirtyDaysAgo }
+    },
+    include: {
+      author: { select: { name: true, username: true, email: true, image: true } },
+      likes: true,
+      comments: {
+        take: 5,
+        orderBy: { createdAt: 'desc' },
+        include: { author: { select: { name: true, username: true, email: true, image: true } } }
+      }
+    }
+  });
+
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '50vh', color: 'var(--text-muted)' }}>
-      <Telescope size={64} style={{ marginBottom: '1.5rem', color: 'var(--accent)', opacity: 0.8 }} />
-      <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', color: 'white', marginBottom: '0.5rem' }}>Keşfet</h2>
-      <p style={{ fontSize: '1.1rem' }}>Topluluktan en yeni fikirler, prototipler ve projeler yakında burada.</p>
+    <div>
+      <ExploreClient initialPosts={dbPosts} currentUser={dbUser} dict={dict} />
     </div>
   );
 }

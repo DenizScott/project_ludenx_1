@@ -36,7 +36,7 @@ export default function ProfileTabs({ user, currentUser, dict }) {
     <>
       <div className={styles.tabs}>
         <div className={`${styles.tab} ${activeTab === 'posts' ? styles.activeTab : ''}`} onClick={() => setActiveTab('posts')} style={{cursor:'pointer'}}>Fikirler</div>
-        <div className={`${styles.tab} ${activeTab === 'replies' ? styles.activeTab : ''}`} onClick={() => setActiveTab('replies')} style={{cursor:'pointer'}}>Yanitlar</div>
+        <div className={`${styles.tab} ${activeTab === 'replies' ? styles.activeTab : ''}`} onClick={() => setActiveTab('replies')} style={{cursor:'pointer'}}>Yanıtlar</div>
         <div className={`${styles.tab} ${activeTab === 'media' ? styles.activeTab : ''}`} onClick={() => setActiveTab('media')} style={{cursor:'pointer'}}>Medya</div>
         <div className={`${styles.tab} ${activeTab === 'likes' ? styles.activeTab : ''}`} onClick={() => setActiveTab('likes')} style={{cursor:'pointer'}}>Tepkiler</div>
       </div>

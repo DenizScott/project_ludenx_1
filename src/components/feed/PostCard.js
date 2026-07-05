@@ -169,28 +169,28 @@ export default function PostCard({ post, currentUser, dict, autoShowComments = f
         <button
           className={`${styles.actionBtn} ${isLiked ? styles.actionActive : ''}`}
           onClick={handleLike}
-          title={dict.feed.like}
+          title={dict?.feed?.like || "Beğen"}
         >
           <Heart size={17} fill={isLiked ? 'currentColor' : 'none'} />
-          <span>{likes > 0 ? likes : dict.feed.like}</span>
+          <span>{likes > 0 ? likes : (dict?.feed?.like || "Beğen")}</span>
         </button>
 
         <button
           className={`${styles.actionBtn} ${isReposted ? styles.actionActiveGreen : ''}`}
           onClick={handleRepost}
-          title="Kayda al"
+          title={dict?.feed?.share || "Tekrar Paylaş"}
         >
           <Repeat2 size={17} />
-          <span>{reposts > 0 ? reposts : 'Kayit'}</span>
+          <span>{reposts > 0 ? reposts : (dict?.feed?.share || "Tekrar Paylaş")}</span>
         </button>
 
         <button
           className={`${styles.actionBtn} ${showComments ? styles.actionActiveBlue : ''}`}
           onClick={(e) => { e.stopPropagation(); setShowComments(!showComments); }}
-          title={dict.feed.comment}
+          title={dict?.feed?.comment || "Yorumla"}
         >
           <MessageSquare size={17} fill={showComments ? 'currentColor' : 'none'} />
-          <span>{localComments.length > 0 ? localComments.length : dict.feed.comment}</span>
+          <span>{localComments.length > 0 ? localComments.length : (dict?.feed?.comment || "Yorumla")}</span>
         </button>
       </div>
 

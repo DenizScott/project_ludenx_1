@@ -44,7 +44,19 @@ export default async function FollowingPage() {
       <div style={{ padding: '1rem 1.5rem', borderBottom: '1px solid rgba(105, 228, 255, 0.12)', fontSize: '1.2rem', fontWeight: 'bold', position: 'sticky', top: 0, background: 'rgba(14, 17, 23, 0.86)', backdropFilter: 'blur(8px)', WebkitBackdropFilter: 'blur(8px)', transform: 'translateZ(0)', zIndex: 10 }}>
         Takip Edilenler
       </div>
-      <FeedListClient initialPosts={dbPosts} currentUser={dbUser} dict={dict} queryKey={['posts', 'following']} />
+      {dbPosts.length === 0 ? (
+        <div style={{ textAlign: 'center', padding: '4rem 1.5rem', color: 'var(--text-muted)', backgroundColor: 'var(--card-dark)', border: '1px solid rgba(105, 228, 255, 0.16)', borderRadius: '12px', margin: '2rem 1.5rem' }}>
+          <h3 style={{ color: 'white', marginBottom: '0.75rem', fontSize: '1.4rem' }}>Henüz takip ettiğin kişilerden paylaşım yok!</h3>
+          <p style={{ maxWidth: '450px', margin: '0 auto 1.5rem', lineHeight: '1.5' }}>
+            {followingIds.length === 0 
+              ? "Akışında içerik görebilmek için topluluktaki geliştirici ve tasarımcıları takip etmeye başla."
+              : "Takip ettiğin kişiler henüz fikir paylaşmamış. Keşfet'e gidip yeni kişiler bulabilir veya ilk fikrini paylaşabilirsin!"}
+          </p>
+          <a href="/explore" style={{ display: 'inline-block', padding: '0.8rem 2rem', background: 'var(--accent)', color: '#081018', borderRadius: '10px', textDecoration: 'none', fontWeight: 'bold' }}>Keşfet&apos;e Göz At</a>
+        </div>
+      ) : (
+        <FeedListClient initialPosts={dbPosts} currentUser={dbUser} dict={dict} queryKey={['posts', 'following']} />
+      )}
     </div>
   );
 }
