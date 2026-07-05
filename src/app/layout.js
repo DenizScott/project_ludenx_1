@@ -20,6 +20,14 @@ export const metadata = {
   },
 };
 
+export const viewport = {
+  themeColor: '#0e1117',
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+};
+
 export default async function RootLayout({ children }) {
   const dict = getDictionary();
   const session = await getServerSession(authOptions);
