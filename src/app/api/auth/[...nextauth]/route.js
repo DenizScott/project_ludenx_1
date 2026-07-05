@@ -94,11 +94,19 @@ export const authOptions = {
       if (user) {
         token.id = user.id;
         token.role = user.role || "USER";
+        token.isBanned = user.isBanned || false;
       }
       if (!token.id && token.sub) {
         token.id = token.sub;
       }
-      if (token.id && !token.role) {
+      // Vercel üzerinde "494: REQUEST_HEADER_TOO_LARGE" hatasını önlemek için
+      // base64 formatındaki büyük resim verilerini ve uzun metinleri JWT cookie'sinden siliyoruz!
+      delete token.picture;
+      delete token.image;
+      delete token.bannerImage;
+      delete token.bio;
+
+      if (token.id && (!token.role || token.isBanned === undefined)) {
         try {
           const dbUser = await prisma.user.findUnique({
             where: { id: token.id },
@@ -113,10 +121,26 @@ export const authOptions = {
       return token;
     },
     async session({ session, token }) {
-      if (session?.user) {
-        session.user.id = token.id || token.sub;
+      if (session?.user && (token.id || token.sub)) {
+        const userId = token.id || token.sub;
+        session.user.id = userId;
         session.user.role = token.role || "USER";
         session.user.isBanned = token.isBanned || false;
+
+        try {
+          const dbUser = await prisma.user.findUnique({
+            where: { id: userId },
+            select: { name: true, email: true, image: true, username: true, role: true, isBanned: true }
+          });
+          if (dbUser) {
+            session.user.name = dbUser.name || session.user.name;
+            session.user.email = dbUser.email || session.user.email;
+            session.user.image = dbUser.image || null;
+            session.user.username = dbUser.username || null;
+            session.user.role = dbUser.role || "USER";
+            session.user.isBanned = dbUser.isBanned || false;
+          }
+        } catch (_) {}
       }
       return session;
     },
